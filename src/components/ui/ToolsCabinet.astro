@@ -1,0 +1,118 @@
+---
+import styles from "./ToolsCabinet.module.css";
+import { translate } from "../../i18n/translations";
+
+// Componente interno reutilizado por la sección de tecnologías.
+interface Tool {
+	name: string;
+	icon?: string;
+}
+
+const genericToolIcon = "◆";
+const tools: Tool[] = [
+	{ name: "Git", icon: "/stack_icons/git.svg" },
+	{ name: "GitHub", icon: "/stack_icons/github.svg" },
+	{ name: "VS Code", icon: "/stack_icons/vscode.svg" },
+	{ name: "Codex", icon: "/stack_icons/codex.svg" },
+	{ name: "NPM", icon: "/stack_icons/npm.svg" },
+	{ name: "Vercel", icon: "/stack_icons/vercel.svg" },
+	{ name: "Netlify", icon: "/stack_icons/netlify.svg" },
+	{ name: "Supabase", icon: "/stack_icons/supabase.svg" },
+];
+---
+
+<article
+	class={styles.cabinet}
+	aria-labelledby="tools-title"
+	data-animated-section
+	data-stack-segment="tools"
+	data-tools-cabinet
+>
+	<header class={styles.cabinetCrown}>
+		<div class={styles.crownCap} aria-hidden="true"></div>
+
+		<div class={styles.crownFace}>
+			<span class={styles.crownScrew} aria-hidden="true"></span>
+			<span class={styles.crownOrnament} aria-hidden="true">◆</span>
+
+			<div class={styles.crownTitle}>
+				<span class={styles.crownIcon} aria-hidden="true">⌘</span>
+				<p>03 /</p>
+				<h3 id="tools-title" data-i18n="stack.tools.title">
+					{translate("stack.tools.title")}
+				</h3>
+			</div>
+
+			<span class:list={[styles.crownOrnament, styles.crownOrnamentRight]} aria-hidden="true">
+				◆
+			</span>
+			<span class={styles.crownScrew} aria-hidden="true"></span>
+		</div>
+	</header>
+
+	<div class={styles.pegboard}>
+		<ul
+			class={styles.toolGrid}
+			aria-label={translate("stack.tools.label")}
+			data-i18n-attrs
+			data-i18n-attr-aria-label="stack.tools.label"
+		>
+			{
+				tools.map((tool) => (
+					<li class={styles.toolCard} data-tool-card>
+						<span class={styles.pegHook} aria-hidden="true"></span>
+						<div class={styles.toolLabel}>
+							<span class={styles.toolIcon} aria-hidden="true">
+								{tool.icon ? (
+									<img
+										src={tool.icon}
+										alt=""
+										width="59"
+										height="59"
+										loading="lazy"
+										decoding="async"
+									/>
+								) : (
+									genericToolIcon
+								)}
+							</span>
+							<span class={styles.toolName}>{tool.name}</span>
+						</div>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<footer class={styles.cabinetShelf} aria-hidden="true">
+		<div class={styles.shelfLip}>
+			<span></span><span></span><span></span>
+		</div>
+
+		<div class={styles.drawer}>
+			<span class={styles.drawerHandle}></span>
+			<p data-i18n="stack.tools.description">{translate("stack.tools.description")}</p>
+			<span class={styles.drawerMark}>■</span>
+		</div>
+	</footer>
+</article>
+
+<script>
+	const toolMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+	document.querySelectorAll<HTMLElement>("[data-tools-cabinet]").forEach((cabinet) => {
+		if (cabinet.dataset.cabinetReady === "true") return;
+		cabinet.dataset.cabinetReady = "true";
+
+		cabinet.querySelectorAll<HTMLElement>("[data-tool-card]").forEach((card) => {
+			card.addEventListener("pointerenter", () => {
+				if (toolMotionPreference.matches) return;
+				if (!card.hasAttribute("data-swinging")) card.setAttribute("data-swinging", "");
+			});
+
+			card.addEventListener("animationend", (event) => {
+				if (event.target === card) card.removeAttribute("data-swinging");
+			});
+		});
+	});
+</script>

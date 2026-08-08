@@ -1,0 +1,663 @@
+---
+import "@fontsource-variable/pixelify-sans";
+import {
+	getProjectHref,
+	type Project,
+	type ProjectMedia,
+} from "../../data/projects";
+import { translate } from "../../i18n/translations";
+import styles from "./ProjectDetail.module.css";
+
+interface Props {
+	project: Project;
+	previousProject?: Project;
+	nextProject?: Project;
+}
+
+const { project, previousProject, nextProject } = Astro.props;
+
+const fallbackMedia: ProjectMedia = {
+	kind: "placeholder",
+	label: translate("projectDetail.fallbackLabel"),
+	labelKey: "projectDetail.fallbackLabel",
+	alt: translate("projectDetail.fallbackAlt"),
+	altKey: "projectDetail.fallbackAlt",
+	filename: "CAPTURA_01.PNG",
+	caption: translate("projectDetail.pendingCapture"),
+	captionKey: "projectDetail.pendingCapture",
+};
+
+const galleryMedia = project.gallery.length > 0 ? project.gallery : [fallbackMedia];
+const initialMedia = galleryMedia[0]!;
+const description =
+	project.description.length > 0 ? project.description : [project.summary];
+const demoUrl = project.links?.demo;
+const repositoryUrl = project.links?.repository;
+const hasLinks = Boolean(demoUrl || repositoryUrl);
+const titleId = `project-${project.slug}-title`;
+---
+
+<article class={styles.projectPage} aria-labelledby={titleId}>
+	<header class={styles.projectChrome} data-reveal="header">
+		<a class={styles.backButton} href="/#proyectos">
+			<span aria-hidden="true">◀</span>
+			<span data-i18n="projectDetail.back">{translate("projectDetail.back")}</span>
+		</a>
+
+		<div class={styles.windowIdentity}>
+			<span class={styles.windowIcon} aria-hidden="true">▧</span>
+			<h1 id={titleId}>
+				<span>{project.windowTitle}</span>
+				<small data-i18n={project.titleKey}>{project.title}</small>
+			</h1>
+		</div>
+
+		<div class={styles.windowControls} aria-hidden="true">
+			<span class:list={[styles.windowControl, styles.minimize]}></span>
+			<span class:list={[styles.windowControl, styles.maximize]}></span>
+			<span class:list={[styles.windowControl, styles.close]}></span>
+		</div>
+	</header>
+
+	<div class={styles.projectContent}>
+		<section
+			class:list={[styles.contentSection, styles.gallerySection]}
+			aria-labelledby={`${project.slug}-gallery-title`}
+		>
+			<header class={styles.sectionHeading} data-reveal>
+				<span class={styles.sectionNumber} aria-hidden="true">01</span>
+				<div>
+					<p data-i18n="projectDetail.viewer">{translate("projectDetail.viewer")}</p>
+					<h2 id={`${project.slug}-gallery-title`} data-i18n="projectDetail.gallery">
+						{translate("projectDetail.gallery")}
+					</h2>
+				</div>
+			</header>
+
+			<div
+				class={styles.galleryWindow}
+				data-project-gallery
+				data-i18n-attrs
+				data-i18n-attr-data-enlarge-label="projectDetail.enlarge"
+				data-i18n-attr-data-show-label="projectDetail.showCapture"
+				data-reveal
+				style="--reveal-delay: 90ms"
+			>
+				<div class={styles.galleryToolbar}>
+					<div class={styles.fileIdentity}>
+						<span class={styles.fileIcon} aria-hidden="true">▧</span>
+						<span data-gallery-filename>{initialMedia.filename}</span>
+					</div>
+
+					<div class={styles.galleryActions}>
+						<span class={styles.galleryCounter} data-gallery-counter>
+							01 / {String(galleryMedia.length).padStart(2, "0")}
+						</span>
+						<button
+							type="button"
+							class={styles.iconButton}
+							data-gallery-direction="-1"
+							aria-label={translate("projectDetail.previousCapture")}
+							data-i18n-attrs
+							data-i18n-attr-aria-label="projectDetail.previousCapture"
+						>
+							◀
+						</button>
+						<button
+							type="button"
+							class={styles.iconButton}
+							data-gallery-direction="1"
+							aria-label={translate("projectDetail.nextCapture")}
+							data-i18n-attrs
+							data-i18n-attr-aria-label="projectDetail.nextCapture"
+						>
+							▶
+						</button>
+					</div>
+				</div>
+
+				<button
+					type="button"
+					class={styles.galleryStage}
+					data-gallery-open
+					aria-label={`Ampliar ${initialMedia.filename}`}
+				>
+					<img
+						data-gallery-image
+						src={initialMedia.kind === "image" ? initialMedia.src : undefined}
+						alt={initialMedia.alt}
+						data-i18n-attrs
+						data-i18n-attr-alt={initialMedia.altKey}
+						hidden={initialMedia.kind !== "image"}
+						decoding="async"
+					/>
+					<span
+						class={styles.mediaPlaceholder}
+						data-gallery-placeholder
+						hidden={initialMedia.kind === "image"}
+						role="img"
+						aria-label={initialMedia.alt}
+						data-i18n-attrs
+						data-i18n-attr-aria-label={initialMedia.altKey}
+					>
+						<span class={styles.placeholderIcon} aria-hidden="true">▧</span>
+						<strong
+							data-gallery-placeholder-label
+							data-i18n={initialMedia.kind === "placeholder" ? initialMedia.labelKey : undefined}
+						>
+							{initialMedia.kind === "placeholder" ? initialMedia.label : ""}
+						</strong>
+						<small data-i18n="projectDetail.replacePlaceholder">
+							{translate("projectDetail.replacePlaceholder")}
+						</small>
+					</span>
+					<span class={styles.zoomHint}>
+						<span aria-hidden="true">⌕</span>
+						<span data-i18n="projectDetail.enlarge">{translate("projectDetail.enlarge")}</span>
+					</span>
+				</button>
+
+				<p
+					class={styles.mediaCaption}
+					data-gallery-caption
+					data-i18n={initialMedia.captionKey ?? initialMedia.altKey}
+					aria-live="polite"
+				>
+					{initialMedia.caption ?? initialMedia.alt}
+				</p>
+
+				<div
+					class={styles.thumbnailRail}
+					role="group"
+					aria-label={translate("projectDetail.selectCapture")}
+					data-i18n-attrs
+					data-i18n-attr-aria-label="projectDetail.selectCapture"
+				>
+					{
+						galleryMedia.map((media, index) => (
+							<button
+								type="button"
+								class={styles.thumbnail}
+								data-gallery-thumb
+								data-kind={media.kind}
+								data-src={media.kind === "image" ? media.src : ""}
+								data-alt={media.alt}
+								data-i18n-attrs
+								data-i18n-attr-data-alt={media.altKey}
+								data-filename={media.filename}
+								data-caption={media.caption ?? media.alt}
+								data-i18n-attr-data-caption={media.captionKey ?? media.altKey}
+								data-label={media.kind === "placeholder" ? media.label : ""}
+								data-i18n-attr-data-label={media.kind === "placeholder" ? media.labelKey : undefined}
+								aria-label={`Mostrar ${media.filename}`}
+								aria-pressed={index === 0}
+							>
+								<span class={styles.thumbnailPreview}>
+									{media.kind === "image" ? (
+										<img src={media.src} alt="" loading="lazy" decoding="async" />
+									) : (
+										<span class={styles.thumbnailPlaceholder} aria-hidden="true">
+											▧
+										</span>
+									)}
+								</span>
+								<span class={styles.thumbnailIndex}>
+									{String(index + 1).padStart(2, "0")}
+								</span>
+							</button>
+						))
+					}
+				</div>
+
+				<dialog
+					class={styles.galleryDialog}
+					data-gallery-dialog
+					aria-label={translate(project.dialogLabelKey)}
+					data-i18n-attrs
+					data-i18n-attr-aria-label={project.dialogLabelKey}
+				>
+					<div class={styles.dialogTitlebar}>
+						<div class={styles.fileIdentity}>
+							<span class={styles.fileIcon} aria-hidden="true">▧</span>
+							<span data-gallery-filename>{initialMedia.filename}</span>
+						</div>
+						<button
+							type="button"
+							class={styles.dialogClose}
+							data-gallery-close
+							aria-label={translate("projectDetail.closeExpanded")}
+							data-i18n-attrs
+							data-i18n-attr-aria-label="projectDetail.closeExpanded"
+						>
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<div class={styles.dialogBody}>
+						<button
+							type="button"
+							class:list={[styles.iconButton, styles.dialogArrow]}
+							data-gallery-direction="-1"
+							aria-label={translate("projectDetail.previousCapture")}
+							data-i18n-attrs
+							data-i18n-attr-aria-label="projectDetail.previousCapture"
+						>
+							◀
+						</button>
+
+						<figure class={styles.dialogFigure}>
+							<div class={styles.dialogMedia}>
+								<img
+									data-gallery-image
+									src={initialMedia.kind === "image" ? initialMedia.src : undefined}
+									alt={initialMedia.alt}
+									data-i18n-attrs
+									data-i18n-attr-alt={initialMedia.altKey}
+									hidden={initialMedia.kind !== "image"}
+								/>
+								<span
+									class={styles.mediaPlaceholder}
+									data-gallery-placeholder
+									hidden={initialMedia.kind === "image"}
+									role="img"
+									aria-label={initialMedia.alt}
+									data-i18n-attrs
+									data-i18n-attr-aria-label={initialMedia.altKey}
+								>
+									<span class={styles.placeholderIcon} aria-hidden="true">▧</span>
+									<strong
+										data-gallery-placeholder-label
+										data-i18n={initialMedia.kind === "placeholder" ? initialMedia.labelKey : undefined}
+									>
+										{initialMedia.kind === "placeholder" ? initialMedia.label : ""}
+									</strong>
+									<small data-i18n="projectDetail.pendingCapture">
+										{translate("projectDetail.pendingCapture")}
+									</small>
+								</span>
+							</div>
+							<figcaption data-gallery-caption>
+								{initialMedia.caption ?? initialMedia.alt}
+							</figcaption>
+						</figure>
+
+						<button
+							type="button"
+							class:list={[styles.iconButton, styles.dialogArrow]}
+							data-gallery-direction="1"
+							aria-label={translate("projectDetail.nextCapture")}
+							data-i18n-attrs
+							data-i18n-attr-aria-label="projectDetail.nextCapture"
+						>
+							▶
+						</button>
+					</div>
+
+					<div class={styles.dialogStatus}>
+						<span data-i18n="projectDetail.currentFile">{translate("projectDetail.currentFile")}</span>
+						<strong data-gallery-counter>
+							01 / {String(galleryMedia.length).padStart(2, "0")}
+						</strong>
+					</div>
+				</dialog>
+			</div>
+		</section>
+
+		<section
+			class={styles.contentSection}
+			aria-labelledby={`${project.slug}-stack-title`}
+		>
+			<header class={styles.sectionHeading} data-reveal>
+				<span class={styles.sectionNumber} aria-hidden="true">02</span>
+				<div>
+					<p>STACK.INI</p>
+					<h2 id={`${project.slug}-stack-title`} data-i18n="projectDetail.technologies">
+						{translate("projectDetail.technologies")}
+					</h2>
+				</div>
+			</header>
+
+			<div class={styles.stackPanel} data-reveal style="--reveal-delay: 90ms">
+				{
+					project.technologies.length > 0 ? (
+						<ul class={styles.technologyList}>
+							{project.technologies.map((technology) => (
+								<li class={styles.technologyChip}>
+									<span class={styles.technologyIcon}>
+										<img src={technology.icon} alt="" loading="lazy" decoding="async" />
+									</span>
+									<span>{technology.name}</span>
+								</li>
+							))}
+						</ul>
+					) : (
+						<div class={styles.stackEmpty}>
+							<span aria-hidden="true">?</span>
+							<div>
+								<strong data-i18n="projectDetail.stackPending">
+									{translate("projectDetail.stackPending")}
+								</strong>
+								<p data-i18n="projectDetail.stackPendingDescription">
+									{translate("projectDetail.stackPendingDescription")}
+								</p>
+							</div>
+						</div>
+					)
+				}
+			</div>
+		</section>
+
+		<section
+			class={styles.contentSection}
+			aria-labelledby={`${project.slug}-about-title`}
+		>
+			<header class={styles.sectionHeading} data-reveal>
+				<span class={styles.sectionNumber} aria-hidden="true">03</span>
+				<div>
+					<p>README.TXT</p>
+					<h2 id={`${project.slug}-about-title`} data-i18n="projectDetail.about">
+						{translate("projectDetail.about")}
+					</h2>
+				</div>
+			</header>
+
+			<div class={styles.descriptionWindow} data-reveal style="--reveal-delay: 90ms">
+				<div class={styles.descriptionToolbar} aria-hidden="true">
+					<span data-i18n="projectDetail.file">{translate("projectDetail.file")}</span>
+					<span data-i18n="projectDetail.edit">{translate("projectDetail.edit")}</span>
+					<span data-i18n="projectDetail.view">{translate("projectDetail.view")}</span>
+					<span data-i18n="projectDetail.help">{translate("projectDetail.help")}</span>
+				</div>
+				<div class={styles.descriptionCopy}>
+					{description.map((paragraph, index) => (
+						<p data-i18n={project.descriptionKeys[index]}>{paragraph}</p>
+					))}
+					<span class={styles.textCursor} aria-hidden="true"></span>
+				</div>
+			</div>
+		</section>
+
+		<section
+			class={styles.contentSection}
+			aria-labelledby={`${project.slug}-details-title`}
+		>
+			<header class={styles.sectionHeading} data-reveal>
+				<span class={styles.sectionNumber} aria-hidden="true">04</span>
+				<div>
+					<p data-i18n="projectDetail.systemProperties">
+						{translate("projectDetail.systemProperties")}
+					</p>
+					<h2 id={`${project.slug}-details-title`} data-i18n="projectDetail.features">
+						{translate("projectDetail.features")}
+					</h2>
+				</div>
+			</header>
+
+			<div class={styles.detailsGrid} data-reveal style="--reveal-delay: 90ms">
+				<section class={styles.featuresPanel} aria-labelledby={`${project.slug}-features-title`}>
+					<div class={styles.panelTitlebar}>
+						<span aria-hidden="true">☑</span>
+						<h3 id={`${project.slug}-features-title`} data-i18n="projectDetail.functions">
+							{translate("projectDetail.functions")}
+						</h3>
+					</div>
+					<ul class={styles.featureList}>
+						{
+							project.features.map((feature, index) => (
+								<li>
+									<span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+									<p data-i18n={project.featureKeys[index]}>{feature}</p>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+			</div>
+
+			{
+				hasLinks && (
+					<div
+						class={styles.projectLinks}
+						aria-label={translate("projectDetail.links")}
+						data-i18n-attrs
+						data-i18n-attr-aria-label="projectDetail.links"
+						data-reveal
+						style="--reveal-delay: 120ms"
+					>
+						{demoUrl && (
+							<a href={demoUrl} target="_blank" rel="noreferrer">
+								<span aria-hidden="true">▶</span>
+								<span data-i18n="projectDetail.demo">{translate("projectDetail.demo")}</span>
+							</a>
+						)}
+						{repositoryUrl && (
+							<a href={repositoryUrl} target="_blank" rel="noreferrer">
+								<span aria-hidden="true">⌘</span>
+								<span data-i18n="projectDetail.repository">{translate("projectDetail.repository")}</span>
+							</a>
+						)}
+					</div>
+				)
+			}
+		</section>
+
+		<nav
+			class={styles.projectNavigation}
+			aria-label={translate("projectDetail.navigation")}
+			data-i18n-attrs
+			data-i18n-attr-aria-label="projectDetail.navigation"
+			data-reveal
+		>
+			{
+				previousProject ? (
+					<a class={styles.adjacentProject} href={getProjectHref(previousProject)}>
+						<span aria-hidden="true">◀</span>
+						<small data-i18n="projectDetail.previousProject">
+							{translate("projectDetail.previousProject")}
+						</small>
+						<strong>{previousProject.windowTitle}</strong>
+					</a>
+				) : (
+					<span aria-hidden="true"></span>
+				)
+			}
+
+			<a class={styles.allProjectsButton} href="/#proyectos">
+				<span aria-hidden="true">▦</span>
+				<span data-i18n="projectDetail.back">{translate("projectDetail.back")}</span>
+			</a>
+
+			{
+				nextProject ? (
+					<a class:list={[styles.adjacentProject, styles.nextProject]} href={getProjectHref(nextProject)}>
+						<small data-i18n="projectDetail.nextProject">
+							{translate("projectDetail.nextProject")}
+						</small>
+						<strong>{nextProject.windowTitle}</strong>
+						<span aria-hidden="true">▶</span>
+					</a>
+				) : (
+					<span aria-hidden="true"></span>
+				)
+			}
+		</nav>
+	</div>
+</article>
+
+<script>
+	type GalleryMedia = {
+		kind: "image" | "placeholder";
+		src: string;
+		alt: string;
+		filename: string;
+		caption: string;
+		label: string;
+	};
+
+	document.querySelectorAll<HTMLElement>("[data-project-gallery]").forEach((gallery) => {
+		if (gallery.dataset.galleryReady === "true") return;
+		gallery.dataset.galleryReady = "true";
+
+		const thumbnails = Array.from(
+			gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-thumb]"),
+		);
+		const directionButtons = Array.from(
+			gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-direction]"),
+		);
+		const images = Array.from(
+			gallery.querySelectorAll<HTMLImageElement>("[data-gallery-image]"),
+		);
+		const placeholders = Array.from(
+			gallery.querySelectorAll<HTMLElement>("[data-gallery-placeholder]"),
+		);
+		const placeholderLabels = Array.from(
+			gallery.querySelectorAll<HTMLElement>("[data-gallery-placeholder-label]"),
+		);
+		const filenames = Array.from(
+			gallery.querySelectorAll<HTMLElement>("[data-gallery-filename]"),
+		);
+		const captions = Array.from(
+			gallery.querySelectorAll<HTMLElement>("[data-gallery-caption]"),
+		);
+		const counters = Array.from(
+			gallery.querySelectorAll<HTMLElement>("[data-gallery-counter]"),
+		);
+		const openButton = gallery.querySelector<HTMLButtonElement>("[data-gallery-open]");
+		const dialog = gallery.querySelector<HTMLDialogElement>("[data-gallery-dialog]");
+		const closeButton =
+			gallery.querySelector<HTMLButtonElement>("[data-gallery-close]");
+		let currentIndex = 0;
+
+		const readMedia = (thumbnail: HTMLButtonElement): GalleryMedia => ({
+			kind: thumbnail.dataset.kind === "image" ? "image" : "placeholder",
+			src: thumbnail.dataset.src ?? "",
+			alt: thumbnail.dataset.alt ?? "",
+			filename: thumbnail.dataset.filename ?? "CAPTURA.PNG",
+			caption: thumbnail.dataset.caption ?? "",
+			label: thumbnail.dataset.label ?? "CAPTURA PENDIENTE",
+		});
+
+		const updateGallery = (nextIndex: number) => {
+			if (thumbnails.length === 0) return;
+
+			currentIndex = Math.max(0, Math.min(nextIndex, thumbnails.length - 1));
+			const media = readMedia(thumbnails[currentIndex]);
+			const hasImage = media.kind === "image" && media.src.length > 0;
+
+			images.forEach((image) => {
+				image.hidden = !hasImage;
+				image.alt = media.alt;
+				if (hasImage) {
+					image.src = media.src;
+				} else {
+					image.removeAttribute("src");
+				}
+			});
+
+			placeholders.forEach((placeholder) => {
+				placeholder.hidden = hasImage;
+				placeholder.setAttribute("aria-label", media.alt);
+			});
+			placeholderLabels.forEach((label) => {
+				label.textContent = media.label;
+			});
+			filenames.forEach((filename) => {
+				filename.textContent = media.filename;
+			});
+			captions.forEach((caption) => {
+				caption.textContent = media.caption || media.alt;
+			});
+			counters.forEach((counter) => {
+				counter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(
+					thumbnails.length,
+				).padStart(2, "0")}`;
+			});
+
+			thumbnails.forEach((thumbnail, index) => {
+				thumbnail.setAttribute("aria-pressed", String(index === currentIndex));
+				const showLabel = gallery.dataset.showLabel ?? "Mostrar";
+				const filename = thumbnail.dataset.filename ?? "CAPTURA.PNG";
+				thumbnail.setAttribute("aria-label", `${showLabel} ${filename}`);
+			});
+
+			directionButtons.forEach((button) => {
+				const direction = Number(button.dataset.galleryDirection ?? "0");
+				button.disabled =
+					(direction < 0 && currentIndex === 0) ||
+					(direction > 0 && currentIndex === thumbnails.length - 1);
+			});
+
+			const enlargeLabel = gallery.dataset.enlargeLabel ?? "Ampliar";
+			openButton?.setAttribute("aria-label", `${enlargeLabel} ${media.filename}`);
+		};
+
+		const moveGallery = (direction: number) => {
+			updateGallery(currentIndex + direction);
+		};
+
+		const closeDialog = () => {
+			if (!dialog) return;
+
+			if (typeof dialog.close === "function" && dialog.open) {
+				dialog.close();
+			} else {
+				dialog.removeAttribute("open");
+				document.documentElement.classList.remove("project-modal-open");
+			}
+		};
+
+		thumbnails.forEach((thumbnail, index) => {
+			thumbnail.addEventListener("click", () => updateGallery(index));
+		});
+
+		directionButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				moveGallery(Number(button.dataset.galleryDirection ?? "0"));
+			});
+		});
+
+		openButton?.addEventListener("click", () => {
+			if (!dialog || dialog.open) return;
+
+			if (typeof dialog.showModal === "function") {
+				dialog.showModal();
+			} else {
+				dialog.setAttribute("open", "");
+			}
+			document.documentElement.classList.add("project-modal-open");
+			closeButton?.focus();
+		});
+
+		closeButton?.addEventListener("click", closeDialog);
+
+		dialog?.addEventListener("close", () => {
+			document.documentElement.classList.remove("project-modal-open");
+			openButton?.focus();
+		});
+
+		dialog?.addEventListener("click", (event) => {
+			if (event.target !== dialog) return;
+
+			const bounds = dialog.getBoundingClientRect();
+			const outside =
+				event.clientX < bounds.left ||
+				event.clientX > bounds.right ||
+				event.clientY < bounds.top ||
+				event.clientY > bounds.bottom;
+			if (outside) closeDialog();
+		});
+
+		gallery.addEventListener("keydown", (event) => {
+			if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+
+			event.preventDefault();
+			moveGallery(event.key === "ArrowLeft" ? -1 : 1);
+		});
+
+		window.addEventListener("portfolio:translations-applied", () => {
+			updateGallery(currentIndex);
+		});
+
+		updateGallery(0);
+	});
+</script>

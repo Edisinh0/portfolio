@@ -1,0 +1,215 @@
+---
+import "@fontsource-variable/pixelify-sans";
+import "../styles/ContactCards.css";
+import { translate, type TranslationKey } from "../../i18n/translations";
+
+type ContactCard = {
+	title: string;
+	titleKey?: TranslationKey;
+	description: string;
+	descriptionKey?: TranslationKey;
+	icon: string;
+	iconWidth: number;
+	iconHeight: number;
+	href: string;
+	hrefKey?: TranslationKey;
+	action: string;
+	actionKey: TranslationKey;
+	ariaKey: TranslationKey;
+	theme: "github" | "mail" | "linkedin";
+	external?: boolean;
+};
+
+const contactCards: ContactCard[] = [
+	{
+		title: "GitHub",
+		description: "github.com/Damianx64",
+		icon: "/images/github_bit.webp",
+		iconWidth: 956,
+		iconHeight: 947,
+		href: "https://github.com/Damianx64",
+		action: translate("contact.github.action"),
+		actionKey: "contact.github.action",
+		ariaKey: "contact.github.aria",
+		theme: "github",
+		external: true,
+	},
+	{
+		title: translate("contact.email.title"),
+		titleKey: "contact.email.title",
+		description: translate("contact.email.description"),
+		descriptionKey: "contact.email.description",
+		icon: "/images/mail_bit.webp",
+		iconWidth: 1028,
+		iconHeight: 801,
+		href: translate("contact.email.href"),
+		hrefKey: "contact.email.href",
+		action: translate("contact.email.action"),
+		actionKey: "contact.email.action",
+		ariaKey: "contact.email.aria",
+		theme: "mail",
+	},
+	{
+		title: "LinkedIn",
+		description: translate("contact.linkedin.description"),
+		descriptionKey: "contact.linkedin.description",
+		icon: "/images/linkedin_bit.webp",
+		iconWidth: 766,
+		iconHeight: 788,
+		href: "https://www.linkedin.com/in/damián-alexander-aceves-navarrete-5a2400399",
+		action: translate("contact.linkedin.action"),
+		actionKey: "contact.linkedin.action",
+		ariaKey: "contact.linkedin.aria",
+		theme: "linkedin",
+		external: true,
+	},
+];
+---
+
+<section class="contact render-deferred" id="contacto" aria-labelledby="contact-title">
+	<div class="contact-shell">
+		<header class="contact-heading" data-reveal>
+			<img
+				class="contact-section-icon"
+				src="/header_icons/contacto.webp"
+				alt=""
+				width="24"
+				height="24"
+				loading="lazy"
+				decoding="async"
+			/>
+			<h2 id="contact-title" data-i18n="contact.title">{translate("contact.title")}</h2>
+		</header>
+
+		<div class="contact-grid">
+			{
+				contactCards.map((contact, index) => (
+					<article
+						class={`contact-card contact-card--${contact.theme}`}
+						aria-labelledby={`contact-${contact.theme}-title`}
+						data-reveal
+						style={`--reveal-delay: ${index * 90 + 70}ms`}
+					>
+						<header class="contact-card__titlebar">
+							<h3
+								id={`contact-${contact.theme}-title`}
+								data-i18n={contact.titleKey}
+							>
+								{contact.title}
+							</h3>
+							<span class="contact-card__close" aria-hidden="true" />
+						</header>
+
+						<div class="contact-card__body">
+							<figure class="contact-card__icon">
+								<img
+									src={contact.icon}
+									alt=""
+									width={contact.iconWidth}
+									height={contact.iconHeight}
+									loading="lazy"
+									decoding="async"
+								/>
+							</figure>
+
+							<p data-i18n={contact.descriptionKey}>{contact.description}</p>
+							<span class="contact-card__separator" aria-hidden="true" />
+
+							<a
+								class="contact-card__action"
+								href={contact.href}
+								data-i18n-attrs
+								data-i18n-attr-href={contact.hrefKey}
+								data-i18n-attr-aria-label={contact.ariaKey}
+								target={contact.external ? "_blank" : undefined}
+								rel={contact.external ? "noreferrer" : undefined}
+								aria-label={translate(contact.ariaKey)}
+							>
+								<span data-i18n={contact.actionKey}>{contact.action}</span>
+								<span class="contact-card__arrow" aria-hidden="true">→</span>
+							</a>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		--contact-paper: #eadabd;
+		--contact-ink: #171914;
+		width: 100%;
+		padding: clamp(10px, 0.7vw, 40px) clamp(18px, 5vw, 80px) clamp(76px, 8vw, 120px);
+		border-inline: 3px ridge #b8a27d;
+		border-bottom: 3px ridge #b8a27d;
+		background-color: var(--contact-paper);
+		background-image:
+			radial-gradient(circle at 15% 30%, rgb(96 72 39 / 8%) 0 1px, transparent 1.5px),
+			radial-gradient(circle at 75% 70%, rgb(255 255 255 / 18%) 0 1px, transparent 1.5px),
+			linear-gradient(90deg, rgb(255 255 255 / 10%), transparent 35%, rgb(89 62 30 / 5%));
+		background-size: 5px 5px, 7px 7px, 100% 100%;
+		box-shadow: inset 0 0 45px rgb(82 55 21 / 14%);
+		color: var(--contact-ink);
+		font-family: "Pixelify Sans Variable", monospace;
+	}
+
+	.contact-shell {
+		width: min(100%, 1240px);
+		margin-inline: auto;
+	}
+
+	.contact-heading {
+		display: flex;
+		max-width: 900px;
+		margin-inline: auto;
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.contact-section-icon {
+		display: block;
+		width: clamp(40px, 1.3vw, 24px);
+		height: clamp(40px, 1.3vw, 24px);
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	.contact-heading h2 {
+		margin: 0;
+		padding-bottom: clamp(17px, 1.8vw, 24px);
+		border-bottom: 2px dotted rgb(83 63 10 / 48%);
+		font-size: clamp(3rem, 4vw, 5.6rem);
+		font-weight: 150;
+		letter-spacing: 0.01em;
+		line-height: 0.92;
+		text-shadow: 3px 3px 0 rgb(23 53 45 / 10%);
+		text-wrap: balance;
+	}
+
+	@media (min-width: 1181px) and (max-height: 820px) {
+		.contact {
+			padding-top: 28px;
+			padding-bottom: 100px;
+		}
+
+		.contact-heading h2 {
+			padding-bottom: 14px;
+			font-size: clamp(2.7rem, 3.25vw, 4.25rem);
+		}
+	}
+
+	@media (max-width: 620px) {
+		.contact {
+			padding-inline: 12px;
+		}
+	}
+
+	@media (max-width: 440px) {
+		.contact-heading h2 {
+			font-size: clamp(2.6rem, 13vw, 3.5rem);
+		}
+	}
+</style>

@@ -1,0 +1,544 @@
+/* Estilos encapsulados del componente ProjectsGallery. */
+.gallery {
+	--forest: #16483c;
+	--ink: #171914;
+	--paper: #eadabd;
+	width: 100%;
+}
+
+.filters {
+	display: flex;
+	margin: 20px auto clamp(28px, 3vw, 42px);
+	align-items: center;
+	justify-content: center;
+	gap: clamp(10px, 1.6vw, 20px);
+}
+
+.filterButton {
+	display: inline-flex;
+	min-width: clamp(105px, 11vw, 145px);
+	height: 47px;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+	padding: 7px 18px;
+	border: 3px outset #cfbb94;
+	background: #dac8a5;
+	box-shadow: 3px 4px 0 rgb(47 39 25 / 31%), inset 0 0 10px rgb(96 72 39 / 8%);
+	color: var(--ink);
+	font: 600 1.1rem/1 "Pixelify Sans Variable", monospace;
+	cursor: pointer;
+	transition: filter 120ms ease, transform 120ms steps(2, end), box-shadow 120ms ease;
+}
+
+.filterButton:hover {
+	filter: brightness(1.06);
+	transform: translateY(-2px);
+	box-shadow: 3px 6px 0 rgb(47 39 25 / 27%), inset 0 0 10px rgb(96 72 39 / 8%);
+}
+
+.filterButton:active {
+	border-style: inset;
+	transform: translate(2px, 2px);
+	box-shadow: 1px 1px 0 rgb(47 39 25 / 26%);
+}
+
+.filterButton:focus-visible {
+	outline: 3px dashed #7a301f;
+	outline-offset: 4px;
+}
+
+.filterButton[aria-pressed="true"] {
+	border-color: #719284;
+	background: var(--forest);
+	box-shadow: 3px 4px 0 rgb(35 39 28 / 43%), inset 0 0 0 2px #9daf93;
+	color: #f0e8d6;
+}
+
+.filterButton[aria-pressed="true"]:hover {
+	box-shadow: 3px 6px 0 rgb(35 39 28 / 38%), inset 0 0 0 2px #9daf93;
+}
+
+.filterCursor {
+	display: inline-block;
+	width: 0;
+	overflow: hidden;
+	color: #eee3ca;
+	font-size: 0.75em;
+	opacity: 0;
+	transform: translateX(-6px);
+	transition: width 120ms steps(2, end), opacity 120ms ease, transform 120ms steps(2, end);
+}
+
+.filterButton[aria-pressed="true"] .filterCursor {
+	width: 0.9em;
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.projectsGrid {
+	display: grid;
+	width: 100%;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 470px));
+	gap: 32px;
+}
+
+.projectCard {
+	position: relative;
+	top: 0;
+	width: 100%;
+	overflow: hidden;
+	border: 4px ridge #b6a17b;
+	background: #dfcca8;
+	box-shadow:
+		7px 8px 0 rgb(50 40 24 / 25%),
+		inset 0 0 20px rgb(84 59 29 / 10%);
+	color: var(--ink);
+	font-family: "Pixelify Sans Variable", monospace;
+	transform-origin: top center;
+	animation: windowBoot 380ms steps(5, end);
+	transition: top 180ms steps(3, end), box-shadow 180ms ease, filter 180ms ease;
+}
+
+.projectCard::after {
+	position: absolute;
+	inset: 0;
+	border: 1px solid rgb(255 255 255 / 48%);
+	content: "";
+	pointer-events: none;
+}
+
+.projectCard:hover {
+	top: -7px;
+	filter: saturate(1.04);
+	box-shadow:
+		10px 13px 0 rgb(50 40 24 / 22%),
+		inset 0 0 20px rgb(84 59 29 / 10%);
+}
+
+.windowBar {
+	display: flex;
+	height: 35px;
+	align-items: center;
+	justify-content: space-between;
+	padding: 3px 5px 3px 8px;
+	border-bottom: 3px ridge #b6a17b;
+	background: linear-gradient(90deg, #0c3c38 0%, #124f48 58%, #0b3834 100%);
+	box-shadow: inset 0 1px #397066, inset 0 -1px #061f1c;
+	color: #f2e8d1;
+}
+
+.windowName {
+	display: flex;
+	min-width: 0;
+	align-items: center;
+	gap: 7px;
+	font-size: 1rem;
+	font-weight: 650;
+	letter-spacing: 0.01em;
+}
+
+.windowName > :last-child {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.windowIcon {
+	display: grid;
+	width: 21px;
+	height: 21px;
+	flex: 0 0 auto;
+	border: 2px outset #d6bf8d;
+	background: #b7aa5b;
+	color: #173a32;
+	font-family: monospace;
+	font-size: 0.85rem;
+	line-height: 1;
+	place-items: center;
+}
+
+.windowControls {
+	display: flex;
+	flex: 0 0 auto;
+	gap: 3px;
+}
+
+.windowControl {
+	position: relative;
+	display: block;
+	width: 25px;
+	height: 25px;
+	border: 3px outset #d8c69f;
+	background: #d5c39e;
+	box-shadow: 1px 1px 0 #071915;
+}
+
+.windowControl::before,
+.windowControl::after {
+	position: absolute;
+	background: #17201b;
+	content: "";
+}
+
+.minimize::before {
+	right: 5px;
+	bottom: 4px;
+	left: 5px;
+	height: 2px;
+}
+
+.maximize::before {
+	inset: 3px;
+	border: 2px solid #17201b;
+	background: transparent;
+}
+
+.close::before,
+.close::after {
+	top: 9px;
+	left: 2px;
+	width: 15px;
+	height: 2px;
+}
+
+.close::before {
+	transform: rotate(45deg);
+}
+
+.close::after {
+	transform: rotate(-45deg);
+}
+
+.projectMedia {
+	position: relative;
+	display: grid;
+	height: clamp(195px, 20vw, 245px);
+	min-height: 0;
+	overflow: hidden;
+	border-bottom: 3px ridge #b6a17b;
+	background-color: #cdbf9f;
+	background-image:
+		linear-gradient(rgb(255 255 255 / 4%) 50%, rgb(44 35 21 / 4%) 50%),
+		radial-gradient(circle at center, rgb(255 255 255 / 13%), transparent 68%);
+	background-size: 100% 4px, 100% 100%;
+	box-shadow: inset 0 0 30px rgb(56 45 28 / 18%);
+	place-items: center;
+}
+
+.projectMedia::after {
+	position: absolute;
+	right: 0;
+	left: 0;
+	height: 28%;
+	background: linear-gradient(transparent, rgb(236 226 195 / 18%), transparent);
+	content: "";
+	opacity: 0;
+	pointer-events: none;
+}
+
+.projectCard:hover .projectMedia::after {
+	animation: scanline 1.8s steps(7, end) infinite;
+}
+
+.projectMedia img,
+.emptyProjectMedia {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+	object-fit: contain;
+}
+
+.emptyProjectMedia {
+	display: grid;
+	align-content: center;
+	justify-items: center;
+	gap: 10px;
+	padding: 24px;
+	color: #315d52;
+	font-family: "Pixelify Sans Variable", monospace;
+	text-align: center;
+}
+
+.emptyProjectMedia > span {
+	font-size: clamp(3rem, 7vw, 5.5rem);
+	line-height: 1;
+	text-shadow: 3px 3px 0 rgb(68 53 29 / 18%);
+}
+
+.emptyProjectMedia > small {
+	font-size: 0.9rem;
+	letter-spacing: 0.08em;
+}
+
+.cardContent {
+	display: flex;
+	min-height: 215px;
+	align-items: flex-start;
+	flex-direction: column;
+	padding: clamp(18px, 2.3vw, 23px);
+}
+
+.cardHeading {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	gap: 11px;
+}
+
+.cardHeading h3 {
+	margin: 0;
+	font-size: clamp(1.45rem, 1.8vw, 1.75rem);
+	font-weight: 600;
+	line-height: 1;
+}
+
+.statusLight {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	flex: 0 0 auto;
+	border: 1px solid #245b26;
+	border-radius: 50%;
+	background: #539847;
+	box-shadow: inset 1px 1px rgb(255 255 255 / 45%), 1px 1px 0 rgb(47 39 25 / 40%);
+	animation: statusBlink 2.4s steps(2, end) infinite;
+}
+
+.category {
+	margin-left: auto;
+	padding: 4px 9px;
+	border: 2px inset #c8b58e;
+	background: rgb(205 188 153 / 76%);
+	color: #4f291f;
+	font-size: 0.92rem;
+	line-height: 1;
+}
+
+.cardContent > p {
+	margin: 14px 0 20px;
+	font-family: Consolas, "Courier New", monospace;
+	font-size: clamp(0.95rem, 1.25vw, 1.05rem);
+	line-height: 1.5;
+	text-wrap: pretty;
+}
+
+.projectButton {
+	display: inline-flex;
+	min-width: 160px;
+	height: 44px;
+	margin-top: auto;
+	align-items: center;
+	justify-content: center;
+	gap: 13px;
+	padding: 7px 18px;
+	border: 3px outset #6f907d;
+	background: var(--forest);
+	box-shadow: 3px 4px 0 rgb(35 39 28 / 44%), inset 0 0 0 2px #9daf93;
+	color: #f1e8d4;
+	font: 600 1.05rem/1 "Pixelify Sans Variable", monospace;
+	text-decoration: none;
+	cursor: pointer;
+	transition: filter 120ms ease, transform 120ms steps(2, end), box-shadow 120ms ease;
+}
+
+.projectButton:hover:not(:disabled) {
+	filter: brightness(1.1);
+	transform: translateY(-2px);
+	box-shadow: 3px 6px 0 rgb(35 39 28 / 37%), inset 0 0 0 2px #9daf93;
+}
+
+.projectButton:active:not(:disabled) {
+	border-style: inset;
+	transform: translate(2px, 2px);
+	box-shadow: 1px 1px 0 rgb(35 39 28 / 35%);
+}
+
+.projectButton:focus-visible {
+	outline: 3px dashed #7a301f;
+	outline-offset: 4px;
+}
+
+.projectButton:disabled {
+	cursor: not-allowed;
+}
+
+.emptyState {
+	width: min(100%, 520px);
+	margin: 0;
+	padding: 42px 24px;
+	border: 3px inset #c5b28e;
+	background: rgb(218 201 165 / 66%);
+	font: 1.1rem/1.4 Consolas, "Courier New", monospace;
+	text-align: center;
+	animation: windowBoot 260ms steps(4, end);
+}
+
+@media (min-width: 1181px) and (max-height: 820px) {
+	.filters {
+		margin: 14px auto 24px;
+		gap: 14px;
+	}
+
+	.filterButton {
+		min-width: 120px;
+		height: 40px;
+		padding: 6px 15px;
+		font-size: 1rem;
+	}
+
+	.projectsGrid {
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 410px));
+		gap: 26px;
+	}
+
+	.windowBar {
+		height: 32px;
+	}
+
+	.windowName {
+		font-size: 0.92rem;
+	}
+
+	.windowIcon {
+		width: 19px;
+		height: 19px;
+		font-size: 0.75rem;
+	}
+
+	.windowControl {
+		width: 22px;
+		height: 22px;
+	}
+
+	.projectMedia {
+		height: 210px;
+	}
+
+	.cardContent {
+		min-height: 185px;
+		padding: 18px;
+	}
+
+	.cardHeading h3 {
+		font-size: 1.45rem;
+	}
+
+	.cardContent > p {
+		margin: 10px 0 15px;
+		font-size: 0.95rem;
+		line-height: 1.45;
+	}
+
+	.projectButton {
+		min-width: 145px;
+		height: 40px;
+		font-size: 1rem;
+	}
+}
+
+@keyframes windowBoot {
+	0% {
+		opacity: 0;
+		transform: scale(0.96) translateY(12px);
+	}
+
+	55% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
+@keyframes scanline {
+	0% {
+		top: -30%;
+		opacity: 0;
+	}
+
+	15%,
+	75% {
+		opacity: 1;
+	}
+
+	100% {
+		top: 105%;
+		opacity: 0;
+	}
+}
+
+@keyframes statusBlink {
+	0%,
+	78% {
+		filter: brightness(1);
+	}
+
+	79%,
+	100% {
+		filter: brightness(1.45);
+	}
+}
+
+@media (max-width: 560px) {
+	.filters {
+		gap: 7px;
+	}
+
+	.filterButton {
+		min-width: 0;
+		height: 44px;
+		flex: 1;
+		padding-inline: 8px;
+		font-size: 1rem;
+	}
+
+	.projectCard {
+		border-width: 3px;
+	}
+
+	.windowBar {
+		height: 35px;
+	}
+
+	.windowControl {
+		width: 23px;
+		height: 23px;
+	}
+
+	.projectMedia {
+		height: 190px;
+	}
+
+	.cardContent {
+		min-height: 205px;
+	}
+}
+
+@media (max-width: 780px) {
+	.cardContent > p,
+	.emptyState {
+		font-weight: 400;
+		-webkit-text-stroke: 0.12px currentColor;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.filterButton,
+	.filterCursor,
+	.projectCard,
+	.projectButton {
+		transition: none;
+	}
+
+	.projectCard,
+	.emptyState,
+	.statusLight,
+	.projectCard:hover .projectMedia::after {
+		animation: none;
+	}
+}

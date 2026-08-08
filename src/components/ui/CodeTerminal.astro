@@ -1,0 +1,323 @@
+---
+import { translate } from "../../i18n/translations";
+---
+
+<div
+	class="code-terminal"
+	data-terminal
+	data-reveal="hero"
+	style="--reveal-delay: 280ms"
+>
+	<div class="code-terminal__bar" aria-hidden="true">
+		<span class="code-terminal__controls">
+			<span class="code-terminal__control code-terminal__control--minimize"></span>
+			<span class="code-terminal__control code-terminal__control--maximize"></span>
+			<span class="code-terminal__control code-terminal__control--close"></span>
+		</span>
+		<span class="code-terminal__title">damian@portfolio:~</span>
+	</div>
+
+	<p class="sr-only" data-i18n="terminal.accessible">
+		{translate("terminal.accessible")}
+	</p>
+
+	<pre class="code-terminal__screen" aria-hidden="true"><code><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>npm create astro@latest</span><span class="terminal-caret"></span></span>
+<span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.created">{translate("terminal.created")}</span><span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.dependencies">{translate("terminal.dependencies")}</span><span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.git">{translate("terminal.git")}</span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>cd portfolio</span><span class="terminal-caret"></span></span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>git add .</span><span class="terminal-caret"></span></span><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text data-i18n-attrs data-i18n-attr-data-full-text="terminal.commit">{translate("terminal.commit")}</span><span class="terminal-caret"></span></span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>npm run dev</span><span class="terminal-caret"></span></span>
+<span class="terminal-line terminal-line--accent" data-terminal-line="reveal">▶ Local: http://localhost:4321/</span>
+<span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.ready">{translate("terminal.ready")}</span></code></pre>
+</div>
+
+<style>
+	.code-terminal {
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		right: clamp(20%, 4.5vw, 7%);
+		width: clamp(300px, 32vw, 460px);
+		overflow: hidden;
+		border: 3px outset #b9aa8d;
+		border-radius: 5px;
+		background: #151a18;
+		box-shadow:
+			8px 10px 0 rgb(45 39 26 / 24%),
+			0 18px 38px rgb(30 37 29 / 20%);
+		color: #e8e0cf;
+		font-family: Consolas, "Courier New", monospace;
+		transform: translateY(-50%);
+	}
+
+	.code-terminal__bar {
+		position: relative;
+		display: flex;
+		height: 40px;
+		align-items: center;
+		justify-content: center;
+		padding-inline: 16px;
+		border-bottom: 2px solid #82765f;
+		background: #d8c8a8;
+		box-shadow: inset 0 1px rgb(255 255 255 / 55%);
+		color: #262820;
+	}
+
+	.code-terminal__controls {
+		position: absolute;
+		right: 8px;
+		display: flex;
+		gap: 4px;
+	}
+
+	.code-terminal__control {
+		position: relative;
+		display: block;
+		width: 24px;
+		height: 24px;
+		border: 3px outset #d8c69f;
+		background: #d5c39e;
+		box-shadow: 1px 1px 0 #4f4738;
+	}
+
+	.code-terminal__control::before,
+	.code-terminal__control::after {
+		position: absolute;
+		background: #17201b;
+		content: "";
+	}
+
+	.code-terminal__control--minimize::before {
+		right: 5px;
+		bottom: 4px;
+		left: 5px;
+		height: 2px;
+	}
+
+	.code-terminal__control--maximize::before {
+		inset: 3px;
+		border: 2px solid #17201b;
+		background: transparent;
+	}
+
+	.code-terminal__control--close::before,
+	.code-terminal__control--close::after {
+		top: 50%;
+		left: 50%;
+		width: 60%;
+		height: 2px;
+		transform-origin: center;
+	}
+
+	.code-terminal__control--close::before {
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	.code-terminal__control--close::after {
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+
+	.code-terminal__title {
+		overflow: hidden;
+		font-family: "Pixelify Sans Variable", monospace;
+		font-size: 1.2rem;
+		font-weight: 650;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.code-terminal__screen {
+		min-height: 244px;
+		margin: 0;
+		padding: clamp(18px, 2vw, 26px);
+		background-image:
+			linear-gradient(rgb(255 255 255 / 2%) 50%, transparent 50%),
+			radial-gradient(circle at 85% 15%, rgb(118 168 132 / 8%), transparent 44%);
+		background-size: 100% 4px, 100% 100%;
+		font: inherit;
+		font-size: clamp(0.78rem, 1vw, 0.95rem);
+		line-height: 1.8;
+		white-space: pre-wrap;
+	}
+
+	.terminal-line {
+		display: block;
+		min-height: 1.8em;
+	}
+
+	.terminal-line--output {
+		color: #c9c2b2;
+	}
+
+	.terminal-line--accent {
+		color: #d6b873;
+	}
+
+	.terminal-line--success,
+	.terminal-prompt {
+		color: #83b88d;
+	}
+
+	.terminal-caret {
+		display: inline-block;
+		width: 0.62em;
+		height: 1.08em;
+		margin-left: 2px;
+		background: #d9e0ce;
+		vertical-align: -0.16em;
+		visibility: hidden;
+	}
+
+	.code-terminal[data-terminal-animating] .terminal-line[data-terminal-active] .terminal-caret {
+		visibility: visible;
+		animation: terminal-blink 700ms steps(1, end) infinite;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		padding: 0;
+		border: 0;
+		margin: -1px;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+	}
+
+	@keyframes terminal-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	@media (max-width: 1180px) and (min-width: 781px) {
+		.code-terminal {
+			right: 2%;
+			width: clamp(280px, 36vw, 390px);
+		}
+
+		.code-terminal__screen {
+			min-height: 226px;
+			font-size: clamp(0.74rem, 1.15vw, 0.86rem);
+		}
+	}
+
+	@media (max-width: 780px) {
+		.code-terminal {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.terminal-caret {
+			animation: none !important;
+		}
+	}
+</style>
+
+<script>
+	const terminals = document.querySelectorAll<HTMLElement>("[data-terminal]");
+	const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+	const wait = (milliseconds: number) =>
+		new Promise<void>((resolve) => window.setTimeout(resolve, milliseconds));
+
+	const showTerminal = (terminal: HTMLElement) => {
+		terminal.querySelectorAll<HTMLElement>("[data-terminal-line]").forEach((line) => {
+			const text = line.querySelector<HTMLElement>("[data-terminal-text]");
+			if (text?.dataset.fullText) text.textContent = text.dataset.fullText;
+			line.style.opacity = "1";
+			line.style.transform = "none";
+			line.removeAttribute("data-terminal-active");
+		});
+		terminal.removeAttribute("data-terminal-animating");
+	};
+
+	const animateTerminal = async (terminal: HTMLElement) => {
+		if (terminal.dataset.terminalPlayed !== undefined) return;
+		terminal.dataset.terminalPlayed = "";
+		terminal.dataset.terminalAnimating = "";
+		terminal.removeAttribute("data-terminal-cancelled");
+
+		const lines = Array.from(
+			terminal.querySelectorAll<HTMLElement>("[data-terminal-line]"),
+		);
+
+		for (const line of lines) {
+			if (terminal.hasAttribute("data-terminal-cancelled")) return;
+			line.dataset.terminalActive = "";
+			line.style.opacity = "1";
+
+			if (line.dataset.terminalLine === "typing") {
+				const text = line.querySelector<HTMLElement>("[data-terminal-text]");
+				const content = text?.dataset.fullText ?? "";
+
+				if (text) {
+					for (const character of content) {
+						if (terminal.hasAttribute("data-terminal-cancelled")) return;
+						text.textContent += character;
+						await wait(25);
+					}
+				}
+
+				await wait(300);
+			} else {
+				line.style.transform = "translateY(0)";
+				await wait(400);
+			}
+
+			line.removeAttribute("data-terminal-active");
+		}
+
+		terminal.removeAttribute("data-terminal-animating");
+	};
+
+	terminals.forEach((terminal) => {
+		if (terminal.dataset.terminalInitialized !== undefined) return;
+		terminal.dataset.terminalInitialized = "";
+		terminal.dataset.terminalLanguage = document.documentElement.lang;
+
+		terminal.querySelectorAll<HTMLElement>("[data-terminal-line]").forEach((line) => {
+			const text = line.querySelector<HTMLElement>("[data-terminal-text]");
+			if (text) {
+				text.dataset.fullText = text.textContent ?? "";
+				text.textContent = "";
+			}
+			line.style.opacity = "0";
+			line.style.transform = "translateY(-4px)";
+			line.style.transition = "opacity 180ms ease, transform 180ms ease";
+		});
+
+		if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+			showTerminal(terminal);
+			return;
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (!entries.some((entry) => entry.isIntersecting)) return;
+				observer.disconnect();
+				window.setTimeout(() => {
+					void animateTerminal(terminal);
+				}, 500);
+			},
+			{ threshold: 0.3 },
+		);
+
+		observer.observe(terminal);
+	});
+
+	window.addEventListener("portfolio:translations-applied", (event) => {
+		if (!(event instanceof CustomEvent)) return;
+		const language = event.detail?.language;
+
+		terminals.forEach((terminal) => {
+			if (!language || terminal.dataset.terminalLanguage === language) return;
+
+			terminal.dataset.terminalLanguage = language;
+			terminal.dataset.terminalCancelled = "";
+			terminal.dataset.terminalPlayed = "";
+			showTerminal(terminal);
+		});
+	});
+</script>

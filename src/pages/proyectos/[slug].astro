@@ -1,0 +1,55 @@
+---
+import Footer from "../../components/astro/Footer.astro";
+import ProjectDetail from "../../components/ui/ProjectDetail.astro";
+import {
+	projects,
+	type Project,
+	type ProjectMedia,
+} from "../../data/projects";
+import Layout from "../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+	return projects.map((project, index) => {
+		const previousProject = projects[index - 1];
+		const nextProject = projects[index + 1];
+
+		return {
+			params: { slug: project.slug },
+			props: {
+				project,
+				...(previousProject ? { previousProject } : {}),
+				...(nextProject ? { nextProject } : {}),
+			},
+		};
+	});
+}
+
+interface Props {
+	project: Project;
+	previousProject?: Project;
+	nextProject?: Project;
+}
+
+const { project, previousProject, nextProject } = Astro.props;
+const preloadMedia = project.gallery.find(
+	(media): media is Extract<ProjectMedia, { kind: "image" }> =>
+		media.kind === "image",
+);
+---
+
+<Layout
+	titleKey={project.metaTitleKey}
+	descriptionKey={project.summaryKey}
+	title={`${project.title} | Damian Aceves`}
+	description={project.summary}
+	preloadImage={preloadMedia?.src}
+>
+	<main id="inicio">
+		<ProjectDetail
+			project={project}
+			previousProject={previousProject}
+			nextProject={nextProject}
+		/>
+	</main>
+	<Footer homeHref="/" />
+</Layout>

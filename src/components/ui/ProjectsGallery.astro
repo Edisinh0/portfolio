@@ -1,0 +1,166 @@
+---
+import styles from "./ProjectsGallery.module.css";
+import {
+	getProjectHref,
+	getProjectCategoryKey,
+	projects,
+	type ProjectCategory,
+} from "../../data/projects";
+import { translate, type TranslationKey } from "../../i18n/translations";
+
+// Componente interno reutilizado por la sección de proyectos.
+type ProjectFilter = "Todos" | ProjectCategory;
+
+const filters: ProjectFilter[] = ["Todos", "Web", "Móvil"];
+const filterKeys: Record<ProjectFilter, TranslationKey> = {
+	Todos: "projects.filter.all",
+	Web: "projects.filter.web",
+	Móvil: "projects.filter.mobile",
+};
+---
+
+<div class={styles.gallery} data-projects-gallery>
+	<div
+		class={styles.filters}
+		role="group"
+		aria-label={translate("projects.filterLabel")}
+		data-i18n-attrs
+		data-i18n-attr-aria-label="projects.filterLabel"
+	>
+		{
+			filters.map((filter) => (
+				<button
+					class={styles.filterButton}
+					type="button"
+					aria-pressed={filter === "Todos"}
+					data-project-filter={filter}
+				>
+					<span class={styles.filterCursor} aria-hidden="true">▶</span>
+					<span data-i18n={filterKeys[filter]}>{translate(filterKeys[filter])}</span>
+				</button>
+			))
+		}
+	</div>
+
+	<div class={styles.projectsGrid} aria-live="polite">
+		{
+			projects.map((project) => (
+				<article
+					class={styles.projectCard}
+					data-project-card
+					data-project-category={project.category}
+				>
+					<div class={styles.windowBar}>
+						<div class={styles.windowName}>
+							<span class={styles.windowIcon} aria-hidden="true">▧</span>
+							<span>{project.windowTitle}</span>
+						</div>
+
+						<div class={styles.windowControls} aria-hidden="true">
+							<span class:list={[styles.windowControl, styles.minimize]} />
+							<span class:list={[styles.windowControl, styles.maximize]} />
+							<span class:list={[styles.windowControl, styles.close]} />
+						</div>
+					</div>
+
+					<div class={styles.projectMedia}>
+						{
+							project.cover.kind === "image" ? (
+								<img
+									src={project.cover.src}
+									alt={project.cover.alt}
+									data-i18n-attrs
+									data-i18n-attr-alt={project.cover.altKey}
+									loading="lazy"
+									decoding="async"
+								/>
+							) : (
+								<div
+									class={styles.emptyProjectMedia}
+									role="img"
+									aria-label={project.cover.alt}
+									data-i18n-attrs
+									data-i18n-attr-aria-label={project.cover.altKey}
+								>
+									<span aria-hidden="true">▧</span>
+									<small>{project.cover.label}</small>
+								</div>
+							)
+						}
+					</div>
+
+					<div class={styles.cardContent}>
+						<div class={styles.cardHeading}>
+							<h3 data-i18n={project.titleKey}>{project.title}</h3>
+							<span class={styles.statusLight} aria-hidden="true" />
+							<span class={styles.category} data-i18n={getProjectCategoryKey(project.category)}>
+								{translate(getProjectCategoryKey(project.category))}
+							</span>
+						</div>
+
+						<p data-i18n={project.summaryKey}>{project.summary}</p>
+
+						<a class={styles.projectButton} href={getProjectHref(project)}>
+							<span data-i18n="projects.view">{translate("projects.view")}</span>
+							<span aria-hidden="true">▶</span>
+						</a>
+					</div>
+				</article>
+			))
+		}
+
+		<p class={styles.emptyState} data-project-empty data-i18n="projects.empty" hidden>
+			{translate("projects.empty")}
+		</p>
+	</div>
+</div>
+
+<script>
+	const restartCardAnimation = (card: HTMLElement) => {
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+		card.style.animation = "none";
+		window.requestAnimationFrame(() => {
+			card.style.removeProperty("animation");
+		});
+	};
+
+	document.querySelectorAll<HTMLElement>("[data-projects-gallery]").forEach((gallery) => {
+		if (gallery.dataset.galleryReady === "true") return;
+		gallery.dataset.galleryReady = "true";
+
+		const buttons = Array.from(
+			gallery.querySelectorAll<HTMLButtonElement>("[data-project-filter]"),
+		);
+		const cards = Array.from(gallery.querySelectorAll<HTMLElement>("[data-project-card]"));
+		const emptyState = gallery.querySelector<HTMLElement>("[data-project-empty]");
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const selectedFilter = button.dataset.projectFilter ?? "Todos";
+				let visibleProjects = 0;
+
+				buttons.forEach((candidate) => {
+					candidate.setAttribute(
+						"aria-pressed",
+						String(candidate.dataset.projectFilter === selectedFilter),
+					);
+				});
+
+				cards.forEach((card) => {
+					const shouldShow =
+						selectedFilter === "Todos" || card.dataset.projectCategory === selectedFilter;
+					const wasHidden = card.hidden;
+
+					card.hidden = !shouldShow;
+					if (shouldShow) {
+						visibleProjects += 1;
+						if (wasHidden) restartCardAnimation(card);
+					}
+				});
+
+				if (emptyState) emptyState.hidden = visibleProjects > 0;
+			});
+		});
+	});
+</script>

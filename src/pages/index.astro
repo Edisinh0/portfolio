@@ -1,0 +1,53 @@
+---
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+import Hero from "../components/astro/Hero.astro";
+import Projects from "../components/astro/Projects.astro";
+import Stack from "../components/astro/Stack.astro";
+import About from "../components/astro/About.astro";
+import Contact from "../components/astro/Contact.astro";
+import Layout from "../layouts/Layout.astro";
+import { translate } from "../i18n/translations";
+---
+
+<Layout
+	title={translate("meta.home.title")}
+	description={translate("meta.home.description")}
+	titleKey="meta.home.title"
+	descriptionKey="meta.home.description"
+>
+	<Header />
+	<main id="inicio">
+		<Hero />
+		<Projects />
+		<Stack />
+		<About />
+		<Contact />
+	</main>
+	<Footer />
+
+	<script>
+		const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+		const animatedSections = Array.from(
+			document.querySelectorAll<HTMLElement>("[data-animated-section]"),
+		);
+
+		if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+			animatedSections.forEach((section) =>
+				section.setAttribute("data-section-visible", ""),
+			);
+		} else {
+			const animationObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						entry.target.toggleAttribute("data-section-visible", entry.isIntersecting);
+					});
+				},
+				{ rootMargin: "250px 0px", threshold: 0 },
+			);
+
+			animatedSections.forEach((section) => animationObserver.observe(section));
+		}
+	</script>
+</Layout>

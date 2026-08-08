@@ -1,0 +1,325 @@
+/* Bloque visual de la línea de tiempo de la sección Sobre mí. */
+.journey {
+	width: min(100%, 1120px);
+	margin: clamp(54px, 7vw, 88px) auto 0;
+}
+
+.timeline {
+	position: relative;
+	display: grid;
+	margin: 0;
+	padding: 0;
+	gap: clamp(30px, 4vw, 48px);
+	list-style: none;
+}
+
+.timeline::before {
+	position: absolute;
+	top: 20px;
+	bottom: 20px;
+	left: 17px;
+	width: 4px;
+	border: 1px solid #101d18;
+	background: #244b40;
+	box-shadow:
+		inset 1px 0 #b5c4aa,
+		2px 0 0 rgb(40 31 20 / 18%);
+	content: "";
+}
+
+.timeline-item {
+	position: relative;
+	display: grid;
+	align-items: start;
+	grid-template-columns: minmax(190px, 225px) minmax(0, 1fr);
+	gap: clamp(20px, 3vw, 36px);
+	padding-left: 64px;
+}
+
+.timeline-item::before {
+	position: absolute;
+	top: 35px;
+	left: 31px;
+	width: 33px;
+	border-top: 3px dotted #30493e;
+	content: "";
+}
+
+.timeline-node {
+	position: absolute;
+	z-index: 1;
+	top: 22px;
+	left: 4px;
+	width: 29px;
+	height: 29px;
+	border: 3px solid #102a23;
+	border-radius: 50%;
+	background: #e6d6b9;
+	box-shadow:
+		0 0 0 3px #dfcfb1,
+		2px 2px 0 rgb(47 37 23 / 35%);
+}
+
+.timeline-node::after {
+	position: absolute;
+	inset: 5px;
+	border-radius: 50%;
+	background: #218a79;
+	box-shadow: inset 2px 2px 0 rgb(255 255 255 / 25%);
+	content: "";
+}
+
+.timeline-item--education .timeline-node::after {
+	background: #a9352c;
+}
+
+.date-stamp {
+	display: flex;
+	min-height: 70px;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 15px;
+	border: 4px ridge #c3b18e;
+	background: #f2e7d3;
+	box-shadow:
+		4px 5px 0 rgb(43 35 23 / 32%),
+		inset 0 0 14px rgb(96 68 35 / 7%);
+	font-family: Consolas, "Courier New", monospace;
+	font-size: clamp(0.78rem, 1vw, 0.96rem);
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.date-stamp time {
+	font-variant-numeric: tabular-nums;
+}
+
+.calendar-icon {
+	position: relative;
+	display: block;
+	width: 30px;
+	height: 31px;
+	flex: 0 0 auto;
+	border: 2px solid #222a24;
+	background:
+		linear-gradient(#9e382c 0 7px, transparent 7px),
+		repeating-linear-gradient(90deg, transparent 0 6px, rgb(42 49 42 / 45%) 6px 7px),
+		repeating-linear-gradient(0deg, #eee2ca 0 6px, rgb(42 49 42 / 35%) 6px 7px);
+	box-shadow: 2px 2px 0 rgb(54 43 26 / 28%);
+}
+
+.calendar-icon::before,
+.calendar-icon::after {
+	position: absolute;
+	top: -5px;
+	width: 3px;
+	height: 8px;
+	border: 1px solid #202821;
+	background: #dfcfb1;
+	content: "";
+}
+
+.calendar-icon::before {
+	left: 5px;
+}
+
+.calendar-icon::after {
+	right: 5px;
+}
+
+.timeline-card {
+	position: relative;
+	min-height: 170px;
+	padding: clamp(19px, 2vw, 26px) clamp(22px, 3vw, 38px);
+	border: 4px ridge #c3b18e;
+	background-color: #f2e6d1;
+	background-image:
+		radial-gradient(circle at 20% 20%, rgb(94 68 37 / 7%) 0 1px, transparent 1.5px),
+		linear-gradient(90deg, rgb(255 255 255 / 20%), transparent 45%);
+	background-size: 7px 7px, 100% 100%;
+	box-shadow:
+		5px 6px 0 rgb(42 34 22 / 34%),
+		inset 0 0 18px rgb(96 69 34 / 7%);
+}
+
+.card-controls {
+	position: absolute;
+	top: 8px;
+	right: 9px;
+	display: flex;
+	flex: 0 0 auto;
+	gap: 3px;
+}
+
+.card-controls span {
+	position: relative;
+	display: block;
+	width: 18px;
+	height: 18px;
+	border: 2px outset #cfbc98;
+	background: #ddcba7;
+}
+
+.card-controls span:first-child::after {
+	position: absolute;
+	right: 3px;
+	bottom: 3px;
+	left: 3px;
+	height: 1px;
+	background: #222a24;
+	content: "";
+}
+
+.card-controls span:nth-child(2)::after {
+	position: absolute;
+	inset: 3px;
+	border: 1px solid #222a24;
+	content: "";
+}
+
+.card-controls span:last-child::before,
+.card-controls span:last-child::after {
+	position: absolute;
+	top: 7px;
+	left: 2px;
+	width: 10px;
+	height: 1px;
+	background: #222a24;
+	content: "";
+}
+
+.card-controls span:last-child::before {
+	transform: rotate(45deg);
+}
+
+.card-controls span:last-child::after {
+	transform: rotate(-45deg);
+}
+
+.entry-type {
+	margin: 0 76px 5px 0;
+	color: #4c6258;
+	font-size: 0.77rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+}
+
+.timeline-card h4 {
+	margin: 0;
+	padding-right: 42px;
+	color: var(--about-red);
+	font-size: clamp(1.38rem, 2vw, 1.9rem);
+	font-weight: 700;
+	line-height: 1.05;
+	text-wrap: balance;
+}
+
+.entry-place {
+	margin: 7px 0 0;
+	color: var(--about-forest);
+	font-size: clamp(1rem, 1.25vw, 1.18rem);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.entry-description {
+	margin: 10px 0 0;
+	color: #252720;
+	font-family: Consolas, "Courier New", monospace;
+	font-size: clamp(0.88rem, 1.05vw, 1rem);
+	line-height: 1.45;
+	text-wrap: pretty;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+@media (min-width: 1181px) and (max-height: 820px) {
+	.journey {
+		margin-top: 58px;
+	}
+}
+
+@media (max-width: 860px) {
+	.timeline-item {
+		grid-template-columns: 1fr;
+		gap: 14px;
+	}
+
+	.date-stamp {
+		width: min(100%, 280px);
+	}
+}
+
+@media (max-width: 620px) {
+	.timeline-item {
+		padding-left: 50px;
+	}
+
+	.timeline::before {
+		left: 13px;
+	}
+
+	.timeline-node {
+		left: 0;
+	}
+
+	.timeline-item::before {
+		left: 27px;
+		width: 23px;
+	}
+
+	.timeline-card {
+		padding: 20px 18px;
+	}
+
+	.timeline-card h4 {
+		padding-right: 0;
+		font-size: 1.42rem;
+	}
+
+	.entry-place {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 440px) {
+	.card-controls {
+		display: none;
+	}
+
+	.entry-type {
+		margin-right: 0;
+	}
+
+	.date-stamp {
+		padding-inline: 11px;
+		font-size: 0.74rem;
+	}
+	
+}
+
+@media (max-width: 780px) {
+	.date-stamp,
+	.entry-description {
+		-webkit-text-stroke: 0.12px currentColor;
+	}
+
+	.date-stamp {
+		font-weight: 500;
+	}
+
+	.entry-description {
+		font-weight: 500;
+	}
+}

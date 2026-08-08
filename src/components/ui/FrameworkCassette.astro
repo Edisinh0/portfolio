@@ -1,0 +1,216 @@
+---
+import styles from "./FrameworkCassette.module.css";
+import { translate, type TranslationKey } from "../../i18n/translations";
+
+// Componente interno reutilizado por la sección de tecnologías.
+type FrameworkCategory = "Frontend" | "Backend" | "Mobile";
+
+interface Framework {
+	name: string;
+	category: FrameworkCategory;
+	icon?: string;
+}
+
+const filters: FrameworkCategory[] = ["Frontend", "Backend", "Mobile"];
+const filterLabelKeys: Record<FrameworkCategory, TranslationKey> = {
+	Frontend: "stack.frameworks.frontendLabel",
+	Backend: "stack.frameworks.backendLabel",
+	Mobile: "stack.frameworks.mobileLabel",
+};
+const filterTextKeys: Record<FrameworkCategory, TranslationKey> = {
+	Frontend: "stack.frameworks.filter.frontend",
+	Backend: "stack.frameworks.filter.backend",
+	Mobile: "stack.frameworks.filter.mobile",
+};
+const genericFrameworkIcon = "</>";
+const frameworks: Framework[] = [
+	{ name: "React", category: "Frontend", icon: "/stack_icons/react.svg" },
+	{ name: "Next.js", category: "Frontend", icon: "/stack_icons/nextjs.svg" },
+	{ name: "Astro", category: "Frontend", icon: "/stack_icons/astro.svg" },
+	{ name: "Tailwind", category: "Frontend", icon: "/stack_icons/tailwind.svg" },
+	{ name: "Node.js", category: "Backend", icon: "/stack_icons/node.svg" },
+	{ name: "Express", category: "Backend", icon: "/stack_icons/express.svg" },
+	{ name: "PostgreSQL", category: "Backend", icon: "/stack_icons/postgresql.svg" },
+	{ name: "React Native", category: "Mobile", icon: "/stack_icons/react.svg" },
+	{ name: "Expo", category: "Mobile", icon: "/stack_icons/expo.svg" },
+];
+---
+
+<article
+	class={styles.cassette}
+	aria-labelledby="frameworks-title"
+	data-animated-section
+	data-framework-cassette
+	data-stack-segment="frameworks"
+>
+	<div class={styles.cornerScrew} aria-hidden="true"></div>
+	<div class={styles.cornerScrew} aria-hidden="true"></div>
+	<div class={styles.cornerScrew} aria-hidden="true"></div>
+	<div class={styles.cornerScrew} aria-hidden="true"></div>
+
+	<div class={styles.label}>
+		<div class={styles.labelHeading}>
+			<div class={styles.terminalIcon} aria-hidden="true">
+				<span>&gt;_</span>
+			</div>
+
+			<div class={styles.labelCopy}>
+				<div class={styles.titleLine}>
+					<p>02 /</p>
+					<h3 id="frameworks-title">Frameworks</h3>
+				</div>
+				<p data-i18n="stack.frameworks.description">
+					{translate("stack.frameworks.description")}
+				</p>
+			</div>
+
+			<div class={styles.mixStamp} aria-hidden="true">
+				<span>DEV MIX</span>
+				<small>v1.0</small>
+			</div>
+		</div>
+
+		<div class={styles.tapeDeck} aria-hidden="true">
+			<div class={styles.sideLabel}>
+				<small>SIDE</small>
+				<strong>A</strong>
+				<span>NOSTALGIA</span>
+			</div>
+
+			<div class={styles.reel}>
+				<div class={styles.reelCore}>
+					<span></span><span></span><span></span><span></span><span></span><span></span>
+				</div>
+			</div>
+
+			<div class={styles.tapeWindow}>
+				<div class={styles.tapeRoll}></div>
+				<div class={styles.tapeGap}></div>
+				<div class={styles.tapeRoll}></div>
+				<div class={styles.tapeScale}>
+					<span>100</span><span>50</span><span>0</span>
+				</div>
+			</div>
+
+			<div class={styles.reel}>
+				<div class={styles.reelCore}>
+					<span></span><span></span><span></span><span></span><span></span><span></span>
+				</div>
+			</div>
+
+			<div class={styles.durationLabel}>
+				<strong>120</strong>
+				<small>MIN</small>
+			</div>
+		</div>
+
+		<div class={styles.frameworkTray} aria-live="polite">
+			{
+				filters.map((filter) => (
+					<ul
+						aria-label={translate(filterLabelKeys[filter])}
+						data-i18n-attrs
+						data-i18n-attr-aria-label={filterLabelKeys[filter]}
+						data-framework-list={filter}
+						hidden={filter !== "Frontend"}
+					>
+						{frameworks
+							.filter((framework) => framework.category === filter)
+							.map((framework) => (
+								<li class={styles.frameworkChip}>
+									<span class={styles.frameworkIcon} aria-hidden="true">
+										{framework.icon ? (
+											<img
+												src={framework.icon}
+												alt=""
+												width="31"
+												height="31"
+												loading={filter === "Frontend" ? "eager" : "lazy"}
+												decoding="async"
+												fetchpriority={filter === "Frontend" ? "low" : undefined}
+											/>
+										) : (
+											genericFrameworkIcon
+										)}
+									</span>
+									<span>{framework.name}</span>
+								</li>
+							))}
+					</ul>
+				))
+			}
+		</div>
+	</div>
+
+	<div class={styles.controlDeck}>
+		<span class={styles.deckMark} aria-hidden="true">▶</span>
+
+		<div
+			class={styles.filterPanel}
+			role="group"
+			aria-label={translate("stack.frameworks.filterLabel")}
+			data-i18n-attrs
+			data-i18n-attr-aria-label="stack.frameworks.filterLabel"
+		>
+			{
+				filters.map((filter) => (
+					<button
+						class={styles.filterButton}
+						type="button"
+						aria-pressed={filter === "Frontend"}
+						data-framework-filter={filter}
+					>
+						<span class={styles.buttonLight} aria-hidden="true"></span>
+						<span data-i18n={filterTextKeys[filter]}>{translate(filterTextKeys[filter])}</span>
+					</button>
+				))
+			}
+		</div>
+
+		<div class={styles.deckPort} aria-hidden="true"></div>
+	</div>
+</article>
+
+<script>
+	const restartChipAnimations = (list: HTMLElement) => {
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+		list.querySelectorAll<HTMLElement>("li").forEach((chip) => {
+			chip.style.animation = "none";
+			window.requestAnimationFrame(() => chip.style.removeProperty("animation"));
+		});
+	};
+
+	document.querySelectorAll<HTMLElement>("[data-framework-cassette]").forEach((cassette) => {
+		if (cassette.dataset.cassetteReady === "true") return;
+		cassette.dataset.cassetteReady = "true";
+
+		const buttons = Array.from(
+			cassette.querySelectorAll<HTMLButtonElement>("[data-framework-filter]"),
+		);
+		const lists = Array.from(
+			cassette.querySelectorAll<HTMLElement>("[data-framework-list]"),
+		);
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const selectedFilter = button.dataset.frameworkFilter ?? "Frontend";
+
+				buttons.forEach((candidate) => {
+					candidate.setAttribute(
+						"aria-pressed",
+						String(candidate.dataset.frameworkFilter === selectedFilter),
+					);
+				});
+
+				lists.forEach((list) => {
+					const shouldShow = list.dataset.frameworkList === selectedFilter;
+					const wasHidden = list.hidden;
+
+					list.hidden = !shouldShow;
+					if (shouldShow && wasHidden) restartChipAnimations(list);
+				});
+			});
+		});
+	});
+</script>

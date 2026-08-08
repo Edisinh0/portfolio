@@ -1,0 +1,244 @@
+---
+import "@fontsource-variable/pixelify-sans";
+import "../styles/StackDisk.css";
+import FrameworkCassette from "../ui/FrameworkCassette.astro";
+import ToolsCabinet from "../ui/ToolsCabinet.astro";
+import { translate } from "../../i18n/translations";
+
+type Language = {
+	name: string;
+	icon: string;
+};
+
+const languages: Language[] = [
+	{ name: "JavaScript", icon: "/stack_icons/javascript.svg" },
+	{ name: "TypeScript", icon: "/stack_icons/typescript.svg" },
+	{ name: "HTML", icon: "/stack_icons/html.svg" },
+	{ name: "CSS", icon: "/stack_icons/css.svg" },
+	{ name: "SQL", icon: "/stack_icons/sql.svg" },
+];
+---
+
+<section
+	class="stack"
+	id="stack"
+	aria-labelledby="stack-title"
+>
+	<div class="stack-shell">
+		<header class="stack-heading" data-reveal>
+			<img
+				class="stack-section-icon"
+				src="/header_icons/tecnologias.webp"
+				alt=""
+				width="24"
+				height="24"
+				loading="eager"
+				decoding="async"
+				fetchpriority="low"
+			/>
+			<h2 id="stack-title" data-i18n="stack.title">{translate("stack.title")}</h2>
+		</header>
+
+		<div class="stack-cards">
+			<article
+				class="language-disk"
+				aria-labelledby="languages-title"
+				data-animated-section
+				data-stack-segment="languages"
+				data-reveal
+				style="--reveal-delay: 70ms"
+			>
+				<div class="disk-label">
+					<div class="disk-icon-bay" aria-hidden="true">
+						<div class="document-icon">
+							<span>&lt;/&gt;</span>
+						</div>
+					</div>
+
+					<div class="disk-copy">
+						<p class="group-number">01 /</p>
+						<h3 id="languages-title" data-i18n="stack.languages.title">
+							{translate("stack.languages.title")}
+						</h3>
+						<p data-i18n="stack.languages.description">
+							{translate("stack.languages.description")}
+						</p>
+					</div>
+				</div>
+
+				<div class="language-tray">
+					<ul
+						class="language-grid"
+						aria-label={translate("stack.languages.label")}
+						data-i18n-attrs
+						data-i18n-attr-aria-label="stack.languages.label"
+					>
+						{
+							languages.map((language) => (
+								<li class="language-chip">
+									<span class="language-icon-slot" aria-hidden="true">
+										<img
+											src={language.icon}
+											alt=""
+											width="31"
+											height="31"
+											loading="eager"
+											decoding="async"
+											fetchpriority="low"
+										/>
+									</span>
+									<span>{language.name}</span>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				<div class="disk-bottom" aria-hidden="true">
+					<div class="disk-shutter">
+						<span class="shutter-window"></span>
+						<span class="disk-capacity">1.44 MB</span>
+					</div>
+
+					<div class="disk-lock">
+						<span>↓</span>
+					</div>
+				</div>
+			</article>
+
+			<div
+				data-reveal
+				style="--reveal-delay: 140ms"
+			>
+				<FrameworkCassette />
+			</div>
+
+			<div
+				class="tools-card"
+				data-reveal
+				style="--reveal-delay: 100ms"
+			>
+				<ToolsCabinet />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.stack {
+		--stack-paper: #eadabd;
+		--stack-ink: #171914;
+		--stack-forest: #153e34;
+		width: 100%;
+		padding: clamp(10px, 0.7vw, 40px) clamp(18px, 5vw, 80px) clamp(76px, 8vw, 120px);
+		border-inline: 3px ridge #b8a27d;
+		border-bottom: 3px ridge #b8a27d;
+		background-color: var(--stack-paper);
+		background-image:
+			radial-gradient(circle at 15% 30%, rgb(96 72 39 / 8%) 0 1px, transparent 1.5px),
+			radial-gradient(circle at 75% 70%, rgb(255 255 255 / 18%) 0 1px, transparent 1.5px),
+			linear-gradient(90deg, rgb(255 255 255 / 10%), transparent 35%, rgb(89 62 30 / 5%));
+		background-size: 5px 5px, 7px 7px, 100% 100%;
+		box-shadow: inset 0 0 45px rgb(82 55 21 / 14%);
+		color: var(--stack-ink);
+		font-family: "Pixelify Sans Variable", monospace;
+	}
+
+	.stack-shell {
+		width: min(100%, 1240px);
+		margin-inline: auto;
+	}
+
+	.stack-heading {
+		display: flex;
+		max-width: 900px;
+		margin-inline: auto;
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.stack-section-icon {
+		display: block;
+		width: clamp(40px, 1.3vw, 24px);
+		height: clamp(40px, 1.3vw, 24px);
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	.stack-heading h2 {
+		margin: 0;
+		padding-bottom: clamp(17px, 1.8vw, 24px);
+		border-bottom: 2px dotted rgb(83 63 10 / 48%);
+		font-size: clamp(3rem, 4vw, 5.6rem);
+		font-weight: 150;
+		letter-spacing: 0.01em;
+		line-height: 0.92;
+		text-shadow: 3px 3px 0 rgb(23 53 45 / 10%);
+		text-wrap: balance;
+	}
+
+	.stack-cards {
+		display: grid;
+		margin-top: clamp(30px, 4vw, 54px);
+		align-items: start;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(24px, 3vw, 42px);
+	}
+
+	.tools-card {
+		width: 100%;
+		margin-top: clamp(8px, 1.6vw, 18px);
+		grid-column: 1 / -1;
+	}
+
+	@media (min-width: 1181px) and (max-height: 820px) {
+		.stack {
+			padding-top: 28px;
+			padding-bottom: 100px;
+		}
+
+		.stack-shell {
+			width: min(100%, 1080px);
+		}
+
+		.stack-heading h2 {
+			padding-bottom: 14px;
+			font-size: clamp(2.7rem, 3.25vw, 4.25rem);
+		}
+
+		.stack-cards {
+			margin-top: 24px;
+			gap: 28px;
+		}
+
+		.tools-card {
+			margin-top: 8px;
+		}
+	}
+
+	@media (max-width: 1180px) {
+		.stack-cards {
+			grid-template-columns: minmax(0, 616px);
+			justify-content: center;
+		}
+
+		.tools-card {
+			width: min(calc(100vw - clamp(36px, 10vw, 160px)), 900px);
+			grid-column: 1;
+			justify-self: center;
+		}
+	}
+
+	@media (max-width: 620px) {
+		.stack {
+			padding-inline: 12px;
+		}
+	}
+
+	@media (max-width: 440px) {
+		.stack-heading h2 {
+			font-size: clamp(2.6rem, 13vw, 3.5rem);
+		}
+	}
+</style>
