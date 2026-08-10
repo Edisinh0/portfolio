@@ -24,15 +24,33 @@ import { translate } from "../../i18n/translations";
 	/>
 
 	<div class="hero-copy" data-reveal="hero" style="--reveal-delay: 210ms">
-		<img
+		{/*
+		  Retrato pendiente. Cuando exista la foto, dejarla en
+		  `public/images/foto_perfil.webp` y reemplazar este SVG por:
+		  <img class="hero-profile" src="/images/foto_perfil.webp" alt={translate("hero.profileAlt")}
+		       data-i18n-attrs data-i18n-attr-alt="hero.profileAlt" loading="eager" decoding="async" />
+		*/}
+		<svg
 			class="hero-profile"
-			src="/images/foto_perfil.webp"
-		alt={translate("hero.profileAlt")}
-		data-i18n-attrs
-		data-i18n-attr-alt="hero.profileAlt"
-			loading="eager"
-			decoding="async"
-		/>
+			viewBox="0 0 64 64"
+			role="img"
+			aria-label={translate("hero.profileAlt")}
+			data-i18n-attrs
+			data-i18n-attr-aria-label="hero.profileAlt"
+			shape-rendering="crispEdges"
+		>
+			<rect width="64" height="64" fill="#d8cdb2" />
+			<rect x="20" y="14" width="24" height="22" fill="#8c6a4a" />
+			<rect x="24" y="10" width="16" height="8" fill="#3a2b1f" />
+			<rect x="18" y="18" width="4" height="10" fill="#3a2b1f" />
+			<rect x="42" y="18" width="4" height="10" fill="#3a2b1f" />
+			<rect x="26" y="23" width="4" height="4" fill="#171914" />
+			<rect x="34" y="23" width="4" height="4" fill="#171914" />
+			<rect x="28" y="31" width="8" height="2" fill="#5c3b2a" />
+			<rect x="14" y="40" width="36" height="24" fill="#153e34" />
+			<rect x="26" y="36" width="12" height="6" fill="#8c6a4a" />
+			<rect x="28" y="40" width="8" height="12" fill="#d8cdb2" />
+		</svg>
 		<h1 id="hero-title" data-i18n="hero.title">{translate("hero.title")}</h1>
 		<p class="hero-role" data-i18n="hero.role">{translate("hero.role")}</p>
 		<p class="hero-description" data-i18n="hero.description">
@@ -67,8 +85,9 @@ import { translate } from "../../i18n/translations";
 
 		<a
 			class="hero-button hero-button--cv"
-			href="/CV_Damian_Alexander_Aceves_Navarrete.pdf"
-			download="CV_Damian_Alexander_Aceves_Navarrete.pdf"
+			href="/cv.html"
+			target="_blank"
+			rel="noreferrer"
 			title={translate("hero.downloadCv")}
 			data-i18n-attrs
 			data-i18n-attr-title="hero.downloadCv"
@@ -87,6 +106,8 @@ import { translate } from "../../i18n/translations";
 		--forest: #16483c;
 		--ink: #171914;
 		--paper: #eadabd;
+		/* Ancho libre a la izquierda de la terminal flotante. */
+		--hero-copy-safe: calc(74vw - clamp(300px, 32vw, 460px) - 24px);
 		position: relative;
 		isolation: isolate;
 		z-index: 1;
@@ -338,6 +359,19 @@ import { translate } from "../../i18n/translations";
 		outline-offset: 5px;
 	}
 
+	/*
+	 * En escritorio la terminal flota sobre el hero y su borde izquierdo cae
+	 * dentro del ancho de .hero-copy, así que las líneas largas quedaban
+	 * cortadas por debajo. `--hero-copy-safe` reproduce la posición de ese
+	 * borde (izquierda de la terminal menos el margen de la columna) para que
+	 * el párrafo corte antes. Si se mueve la terminal, ajustar aquí también.
+	 */
+	@media (min-width: 1181px) {
+		.hero-description {
+			max-width: var(--hero-copy-safe);
+		}
+	}
+
 	@media (min-width: 1181px) and (max-height: 820px) {
 		.hero-copy {
 			top: 4%;
@@ -359,7 +393,7 @@ import { translate } from "../../i18n/translations";
 		}
 
 		.hero-description {
-			max-width: 580px;
+			max-width: min(580px, var(--hero-copy-safe));
 			margin-top: clamp(14px, 1.4vw, 20px);
 			padding-top: clamp(12px, 1vw, 16px);
 			font-size: clamp(0.875rem, 0.85vw, 0.95rem);

@@ -738,8 +738,33 @@
 .projectLinks {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	gap: 14px;
 	margin-top: 28px;
+}
+
+/*
+ * Casi todos estos sistemas son internos: en vez de un enlace muerto o un
+ * "próximamente", la ficha explica por qué no hay demo pública.
+ */
+.accessNote {
+	display: inline-flex;
+	min-height: 46px;
+	align-items: center;
+	padding: 6px 14px;
+	border: 2px inset #d6bf8d;
+	margin: 0;
+	background: #cbbf98;
+	color: #173a32;
+	font-size: 0.86rem;
+	gap: 8px;
+}
+
+.accessNote strong {
+	font-family: monospace;
+	font-size: 0.74rem;
+	letter-spacing: 0.08em;
+	opacity: 0.75;
 }
 
 .projectLinks a,

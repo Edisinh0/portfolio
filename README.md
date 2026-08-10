@@ -1,57 +1,66 @@
-# Portfolio de Damian Aceves
+# Portfolio de Eddie Cerpa — variante retro
 
-¡Hola! Este es mi portafolio como desarrollador. Aquí comparto una parte de mi trabajo, las tecnologías con las que disfruto crear y un poco de mi recorrido como Ingeniero en Sistemas Computacionales.
+Portfolio personal de **Eddie Cerpa**, desarrollador FullStack en Santiago de Chile.
 
-Me gusta transformar ideas en experiencias digitales claras, funcionales y atractivas. Para este sitio elegí una estética inspirada en el software de escritorio retro, porque también creo que los detalles hacen que una interfaz se sienta más cercana y memorable.
+## Crédito
 
-## Lo que encontrarás
+El diseño, la maquetación y todo el código de interfaz son obra de
+**[Damián Alexander Aceves Navarrete](https://github.com/Damianx64)**, tomados de su portfolio
+en [github.com/Damianx64/portfolio](https://github.com/Damianx64/portfolio) **con su autorización**.
+Esta variante conserva su estética de escritorio retro y reemplaza únicamente el contenido.
 
-- Proyectos web y móviles, con filtros por categoría y una página de detalle para cada uno.
-- Las tecnologías, frameworks y herramientas que forman parte de mi día a día.
-- Mi experiencia, formación y forma de entender el desarrollo de software.
-- Enlaces para contactarme, conocer mi perfil de GitHub y descargar mi CV.
+Si el sitio se publica, el crédito debe quedar visible.
+
+## Qué cambia respecto del original
+
+| Área | Cambio |
+|---|---|
+| `src/data/projects.ts` | Catálogo reescrito: 8 proyectos propios en vez de uno |
+| `src/i18n/translations.ts` | Todo el texto ES/EN: identidad, trayectoria, contacto y fichas |
+| Categorías | `Web`/`Móvil` → `Sistemas`/`Integraciones`/`Web`/`Infraestructura` |
+| Stack | Lenguajes, frameworks (Frontend/Backend/**Datos**) y herramientas del stack propio |
+| Trayectoria | La línea de tiempo pasó de 2 entradas fijas a un arreglo de 4 |
+| Campo `accessKey` | Nuevo: explica por qué un proyecto no tiene demo, en vez de dejar un enlace muerto |
+| Ilustraciones propias de Damián | Su foto y su personaje se quitaron; en su lugar hay SVG provisionales |
+
+## Comandos
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # → dist/, HTML estático
+npm run preview
+```
+
+Requiere Node >= 22.12.
 
 ## Catálogo de proyectos
 
-La información de los proyectos se concentra en [`src/data/projects.ts`](src/data/projects.ts). Cada entrada define el identificador y *slug*, categoría, resumen, portada, galería, tecnologías, descripción, funcionalidades y enlaces disponibles.
+Todo el contenido vive en dos archivos:
 
-Esta fuente de datos alimenta tanto la galería de la página principal como las rutas estáticas de detalle en `/proyectos/[slug]`. Para añadir un nuevo proyecto basta con agregar sus recursos en `public/projects/` y una entrada al arreglo `projects`; la interfaz generará su tarjeta y su página automáticamente.
+- **`src/data/projects.ts`** — una entrada por proyecto: slug, categoría, portada, galería,
+  tecnologías y las claves de traducción de su texto. La tarjeta de la portada y la página
+  `/proyectos/<slug>` se generan solas.
+- **`src/i18n/translations.ts`** — el texto en español e inglés. `es` es la fuente de verdad:
+  su tipo define las claves y TypeScript exige que `en` las tenga todas.
 
-## Desarrollado con
+Para agregar un proyecto: sumar sus claves a `es` y `en`, y una entrada al arreglo `projects`.
 
-Este portafolio fue desarrollado con:
+## Pendientes
 
-- [Astro](https://astro.build/) para la estructura y los componentes interactivos.
-- CSS Modules y CSS nativo para conservar una interfaz ligera y personalizada.
-- TypeScript para mantener el código más claro y confiable.
-
-## Estructura del proyecto
-
-```text
-Portfolio/
-├── public/                         # Imágenes, iconos, favicon y CV
-│   └── projects/                    # Portadas y galerías de los proyectos
-├── src/
-│   ├── components/
-│   │   ├── astro/                  # Secciones principales de la página
-│   │   ├── ui/                     # Componentes usados dentro de las secciones
-│   │   └── styles/                 # Bloques visuales construidos únicamente con CSS
-│   ├── data/
-│   │   └── projects.ts              # Catálogo y tipos de datos de los proyectos
-│   ├── layouts/                    # Layouts compartidos
-│   ├── pages/                      # Rutas del sitio
-│   │   └── index.astro
-│   │   └── proyectos/[slug].astro  # Detalle generado para cada proyecto
-│   └── styles/
-│       └── global.css              # Estilos globales
-```
+1. **Las 8 capturas.** Hoy todas las portadas son un placeholder con el nombre del archivo.
+   Es lo que más cambia la primera impresión. Antes de subirlas hay que revisar que no
+   se filtren datos de clientes: RUT, montos, folios, teléfonos, IPs, nombres de empresa.
+   Al agregar una, reemplazar `pendingCover(...)` por
+   `{ kind: "image", src: "/projects/<slug>/cover.webp", ... }`.
+2. **Foto de perfil.** El hero usa un avatar SVG provisional; el comentario en
+   `src/components/astro/Hero.astro` explica cómo cambiarlo por una foto real.
+3. **CV en PDF.** Hoy el botón abre `public/cv.html`, no un PDF.
+4. **Imagen Open Graph:** al compartir el enlace no se ve nada.
+5. **Sin desplegar.** No está publicado en ninguna parte.
 
 ## Contacto
 
-- GitHub: [@Damianx64](https://github.com/Damianx64)
-- Correo: [aceves.x64@gmail.com](mailto:aceves.x64@gmail.com)
-- LinkedIn: [Damian Alexander Aceves Navarrete](https://www.linkedin.com/search/results/people/?keywords=Damian%20Alexander%20Aceves%20Navarrete)
-
-## Licencia
-
-Este repositorio se utiliza como portafolio personal. Todos los derechos reservados.
+- GitHub: [@Edisinh0](https://github.com/Edisinh0)
+- Correo: [ed.cerpa@duocuc.cl](mailto:ed.cerpa@duocuc.cl)
+- LinkedIn: [eddiecerpa](https://www.linkedin.com/in/eddiecerpa)

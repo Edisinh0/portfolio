@@ -33,7 +33,8 @@ const description =
 	project.description.length > 0 ? project.description : [project.summary];
 const demoUrl = project.links?.demo;
 const repositoryUrl = project.links?.repository;
-const hasLinks = Boolean(demoUrl || repositoryUrl);
+const accessKey = project.accessKey;
+const hasLinks = Boolean(demoUrl || repositoryUrl || accessKey);
 const titleId = `project-${project.slug}-title`;
 ---
 
@@ -435,6 +436,15 @@ const titleId = `project-${project.slug}-title`;
 								<span aria-hidden="true">⌘</span>
 								<span data-i18n="projectDetail.repository">{translate("projectDetail.repository")}</span>
 							</a>
+						)}
+						{accessKey && (
+							<p class={styles.accessNote}>
+								<span aria-hidden="true">🔒</span>
+								<strong data-i18n="projectDetail.accessLabel">
+									{translate("projectDetail.accessLabel")}
+								</strong>
+								<span data-i18n={accessKey}>{translate(accessKey)}</span>
+							</p>
 						)}
 					</div>
 				)

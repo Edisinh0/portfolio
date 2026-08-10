@@ -14,19 +14,19 @@ import { translate } from "../../i18n/translations";
 			<span class="code-terminal__control code-terminal__control--maximize"></span>
 			<span class="code-terminal__control code-terminal__control--close"></span>
 		</span>
-		<span class="code-terminal__title">damian@portfolio:~</span>
+		<span class="code-terminal__title">eddie@icontel:~</span>
 	</div>
 
 	<p class="sr-only" data-i18n="terminal.accessible">
 		{translate("terminal.accessible")}
 	</p>
 
-	<pre class="code-terminal__screen" aria-hidden="true"><code><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>npm create astro@latest</span><span class="terminal-caret"></span></span>
+	<pre class="code-terminal__screen" aria-hidden="true"><code><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>./deploy.sh --env production</span><span class="terminal-caret"></span></span>
 <span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.created">{translate("terminal.created")}</span><span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.dependencies">{translate("terminal.dependencies")}</span><span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.git">{translate("terminal.git")}</span>
-<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>cd portfolio</span><span class="terminal-caret"></span></span>
-<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>git add .</span><span class="terminal-caret"></span></span><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text data-i18n-attrs data-i18n-attr-data-full-text="terminal.commit">{translate("terminal.commit")}</span><span class="terminal-caret"></span></span>
-<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>npm run dev</span><span class="terminal-caret"></span></span>
-<span class="terminal-line terminal-line--accent" data-terminal-line="reveal">▶ Local: http://localhost:4321/</span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>tail -n 20 /var/log/tnaoffice/app.log</span><span class="terminal-caret"></span></span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>systemctl status tnaoffice</span><span class="terminal-caret"></span></span><span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text data-i18n-attrs data-i18n-attr-data-full-text="terminal.commit">{translate("terminal.commit")}</span><span class="terminal-caret"></span></span>
+<span class="terminal-line" data-terminal-line="typing"><span class="terminal-prompt">$</span> <span data-terminal-text>grep -ci error /var/log/tnaoffice/app.log</span><span class="terminal-caret"></span></span>
+<span class="terminal-line terminal-line--accent" data-terminal-line="reveal">▶ active (running) · uptime 41d · HTTP 200</span>
 <span class="terminal-line terminal-line--success" data-terminal-line="reveal" data-i18n="terminal.ready">{translate("terminal.ready")}</span></code></pre>
 </div>
 

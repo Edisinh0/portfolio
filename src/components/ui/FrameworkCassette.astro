@@ -3,7 +3,7 @@ import styles from "./FrameworkCassette.module.css";
 import { translate, type TranslationKey } from "../../i18n/translations";
 
 // Componente interno reutilizado por la sección de tecnologías.
-type FrameworkCategory = "Frontend" | "Backend" | "Mobile";
+type FrameworkCategory = "Frontend" | "Backend" | "Datos";
 
 interface Framework {
 	name: string;
@@ -11,28 +11,35 @@ interface Framework {
 	icon?: string;
 }
 
-const filters: FrameworkCategory[] = ["Frontend", "Backend", "Mobile"];
+const filters: FrameworkCategory[] = ["Frontend", "Backend", "Datos"];
 const filterLabelKeys: Record<FrameworkCategory, TranslationKey> = {
 	Frontend: "stack.frameworks.frontendLabel",
 	Backend: "stack.frameworks.backendLabel",
-	Mobile: "stack.frameworks.mobileLabel",
+	Datos: "stack.frameworks.dataLabel",
 };
 const filterTextKeys: Record<FrameworkCategory, TranslationKey> = {
 	Frontend: "stack.frameworks.filter.frontend",
 	Backend: "stack.frameworks.filter.backend",
-	Mobile: "stack.frameworks.filter.mobile",
+	Datos: "stack.frameworks.filter.data",
 };
 const genericFrameworkIcon = "</>";
 const frameworks: Framework[] = [
 	{ name: "React", category: "Frontend", icon: "/stack_icons/react.svg" },
 	{ name: "Next.js", category: "Frontend", icon: "/stack_icons/nextjs.svg" },
+	{ name: "Vue", category: "Frontend", icon: "/stack_icons/vue.svg" },
 	{ name: "Astro", category: "Frontend", icon: "/stack_icons/astro.svg" },
 	{ name: "Tailwind", category: "Frontend", icon: "/stack_icons/tailwind.svg" },
+	{ name: "shadcn/ui", category: "Frontend", icon: "/stack_icons/shadcn.svg" },
+	{ name: "FastAPI", category: "Backend", icon: "/stack_icons/fastapi.svg" },
+	{ name: "Laravel", category: "Backend", icon: "/stack_icons/laravel.svg" },
 	{ name: "Node.js", category: "Backend", icon: "/stack_icons/node.svg" },
 	{ name: "Express", category: "Backend", icon: "/stack_icons/express.svg" },
-	{ name: "PostgreSQL", category: "Backend", icon: "/stack_icons/postgresql.svg" },
-	{ name: "React Native", category: "Mobile", icon: "/stack_icons/react.svg" },
-	{ name: "Expo", category: "Mobile", icon: "/stack_icons/expo.svg" },
+	{ name: "SQLAlchemy", category: "Backend", icon: "/stack_icons/sqlalchemy.svg" },
+	{ name: "MariaDB", category: "Datos", icon: "/stack_icons/mariadb.svg" },
+	{ name: "MySQL", category: "Datos", icon: "/stack_icons/mysql.svg" },
+	{ name: "PostgreSQL", category: "Datos", icon: "/stack_icons/postgresql.svg" },
+	{ name: "SQLite", category: "Datos", icon: "/stack_icons/sqlite.svg" },
+	{ name: "Redis", category: "Datos", icon: "/stack_icons/redis.svg" },
 ];
 ---
 

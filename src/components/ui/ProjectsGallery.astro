@@ -11,11 +11,19 @@ import { translate, type TranslationKey } from "../../i18n/translations";
 // Componente interno reutilizado por la sección de proyectos.
 type ProjectFilter = "Todos" | ProjectCategory;
 
-const filters: ProjectFilter[] = ["Todos", "Web", "Móvil"];
+const filters: ProjectFilter[] = [
+	"Todos",
+	"Sistemas",
+	"Integraciones",
+	"Web",
+	"Infraestructura",
+];
 const filterKeys: Record<ProjectFilter, TranslationKey> = {
 	Todos: "projects.filter.all",
+	Sistemas: "projects.filter.systems",
+	Integraciones: "projects.filter.integrations",
 	Web: "projects.filter.web",
-	Móvil: "projects.filter.mobile",
+	Infraestructura: "projects.filter.infra",
 };
 ---
 
