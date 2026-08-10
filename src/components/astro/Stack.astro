@@ -2,6 +2,7 @@
 import "@fontsource-variable/pixelify-sans";
 import "../styles/StackDisk.css";
 import FrameworkCassette from "../ui/FrameworkCassette.astro";
+import GatoPixel from "../ui/GatoPixel.astro";
 import ToolsCabinet from "../ui/ToolsCabinet.astro";
 import { translate } from "../../i18n/translations";
 
@@ -123,6 +124,9 @@ const languages: Language[] = [
 			</div>
 		</div>
 	</div>
+	<div class="stack-gato" aria-hidden="true">
+		<GatoPixel gato="negro-lame" escala={3} />
+	</div>
 </section>
 
 <style>
@@ -130,6 +134,8 @@ const languages: Language[] = [
 		--stack-paper: #eadabd;
 		--stack-ink: #171914;
 		--stack-forest: #153e34;
+		position: relative;
+		isolation: isolate;
 		width: 100%;
 		padding: clamp(10px, 0.7vw, 40px) clamp(18px, 5vw, 80px) clamp(76px, 8vw, 120px);
 		border-inline: 3px ridge #b8a27d;
@@ -143,6 +149,13 @@ const languages: Language[] = [
 		box-shadow: inset 0 0 45px rgb(82 55 21 / 14%);
 		color: var(--stack-ink);
 		font-family: "Pixelify Sans Variable", monospace;
+	}
+
+	.stack-gato {
+		position: absolute;
+		z-index: 0;
+		bottom: clamp(16px, 2.2vw, 34px);
+		left: clamp(18px, 5vw, 88px);
 	}
 
 	.stack-shell {

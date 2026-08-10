@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/pixelify-sans";
 import "../styles/ContactCards.css";
+import GatoPixel from "../ui/GatoPixel.astro";
 import { translate, type TranslationKey } from "../../i18n/translations";
 
 type ContactCard = {
@@ -134,12 +135,17 @@ const contactCards: ContactCard[] = [
 			}
 		</div>
 	</div>
+	<div class="contact-gato" aria-hidden="true">
+		<GatoPixel gato="naranjo-cola" escala={3} />
+	</div>
 </section>
 
 <style>
 	.contact {
 		--contact-paper: #eadabd;
 		--contact-ink: #171914;
+		position: relative;
+		isolation: isolate;
 		width: 100%;
 		padding: clamp(10px, 0.7vw, 40px) clamp(18px, 5vw, 80px) clamp(76px, 8vw, 120px);
 		border-inline: 3px ridge #b8a27d;
@@ -153,6 +159,13 @@ const contactCards: ContactCard[] = [
 		box-shadow: inset 0 0 45px rgb(82 55 21 / 14%);
 		color: var(--contact-ink);
 		font-family: "Pixelify Sans Variable", monospace;
+	}
+
+	.contact-gato {
+		position: absolute;
+		z-index: 0;
+		right: clamp(18px, 6vw, 110px);
+		bottom: clamp(16px, 2.2vw, 34px);
 	}
 
 	.contact-shell {

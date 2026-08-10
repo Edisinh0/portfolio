@@ -2,6 +2,7 @@
 import "@fontsource-variable/pixelify-sans";
 import "../styles/AboutWindow.css";
 import "../styles/AboutTimeline.css";
+import GatoPixel from "../ui/GatoPixel.astro";
 import { translate, type TranslationKey } from "../../i18n/translations";
 
 interface TimelineEntry {
@@ -183,6 +184,10 @@ const timeline: TimelineEntry[] = [
 			</ol>
 		</section>
 	</div>
+
+	<div class="about-gato" aria-hidden="true">
+		<GatoPixel gato="blanco-duerme" escala={3} />
+	</div>
 </section>
 
 <style>
@@ -191,6 +196,8 @@ const timeline: TimelineEntry[] = [
 		--about-ink: #171914;
 		--about-forest: #153e34;
 		--about-red: #8c2f25;
+		position: relative;
+		isolation: isolate;
 		width: 100%;
 		padding: clamp(10px, 0.7vw, 40px) clamp(18px, 5vw, 80px) clamp(76px, 8vw, 120px);
 		border-inline: 3px ridge #b8a27d;
@@ -204,6 +211,13 @@ const timeline: TimelineEntry[] = [
 		box-shadow: inset 0 0 45px rgb(82 55 21 / 14%);
 		color: var(--about-ink);
 		font-family: "Pixelify Sans Variable", monospace;
+	}
+
+	.about-gato {
+		position: absolute;
+		z-index: 0;
+		top: clamp(20px, 4vw, 64px);
+		right: clamp(18px, 4vw, 76px);
 	}
 
 	.about-shell {

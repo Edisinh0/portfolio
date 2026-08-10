@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/pixelify-sans";
+import GatoPixel from "../ui/GatoPixel.astro";
 import ProjectsGallery from "../ui/ProjectsGallery.astro";
 import { translate } from "../../i18n/translations";
 ---
@@ -38,6 +39,19 @@ import { translate } from "../../i18n/translations";
 			<ProjectsGallery />
 		</div>
 	</div>
+
+	<div class="projects-paseo" aria-hidden="true">
+		<GatoPixel
+			gato="naranjo-camina"
+			escala={3}
+			recorre={{
+				desde: "calc(100vw + 160px)",
+				hasta: "-160px",
+				duracion: "34s",
+				reposo: "70vw",
+			}}
+		/>
+	</div>
 </section>
 
 <style>
@@ -72,6 +86,20 @@ import { translate } from "../../i18n/translations";
 		image-rendering: pixelated;
 		pointer-events: none;
 		user-select: none;
+	}
+
+	/*
+	 * Carril del gato que cruza. El `overflow: hidden` es lo que impide que el
+	 * recorrido empuje la barra de scroll horizontal de la página.
+	 */
+	.projects-paseo {
+		position: absolute;
+		z-index: 0;
+		right: 0;
+		bottom: clamp(14px, 2vw, 30px);
+		left: 0;
+		overflow: hidden;
+		pointer-events: none;
 	}
 
 	.projects-shell {

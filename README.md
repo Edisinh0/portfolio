@@ -11,6 +11,30 @@ Esta variante conserva su estética de escritorio retro y reemplaza únicamente 
 
 Si el sitio se publica, el crédito debe quedar visible.
 
+## Gatos
+
+Los sprites de `public/gatos/` salen del pack **[64x64 FREE Pixel Cats](https://last-tick.itch.io/animated-pixel-cats-64x64)**
+de **Last tick** — gratis, uso comercial permitido, sin exigencia de crédito (se da igual).
+Son cuatro filas del pack recortadas al área útil, no el pack completo.
+
+> El pack prohíbe **revender o redistribuir**. Usarlo en un sitio desplegado es su uso previsto;
+> si este repo se publica en GitHub, los PNG quedan visibles ahí. Son cuatro tiras sueltas y no
+> las hojas originales, pero conviene tenerlo presente antes de hacerlo público.
+
+`src/components/ui/GatoPixel.astro` los anima con `steps()` en CSS, sin JavaScript, y respeta
+`prefers-reduced-motion` (el gato se congela en el primer cuadro en vez de desaparecer).
+
+| Sección | Gato |
+|---|---|
+| Proyectos | naranjo cruzando la sección, de derecha a izquierda |
+| Tecnologías | negro lamiéndose la pata |
+| Sobre mí | blanco durmiendo |
+| Contacto | naranjo sentado de espaldas, moviendo la cola |
+
+Para agregar otro: extraer su fila del pack, dejar el PNG en `public/gatos/` y sumar la entrada
+a `SPRITES` en el componente con el tamaño de un cuadro. **El sentido del paseo tiene que coincidir
+con hacia dónde mira el sprite**, o el gato camina de espaldas.
+
 ## Qué cambia respecto del original
 
 | Área | Cambio |

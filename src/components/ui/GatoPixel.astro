@@ -1,0 +1,125 @@
+---
+/**
+ * Gato pixel animado por sprite sheet.
+ *
+ * Las tiras viven en `public/gatos/` y son una fila del pack de Last tick
+ * (64×64, recortada al área útil). La animación es CSS puro con `steps()`:
+ * no hay JavaScript, y con `prefers-reduced-motion` el gato se queda quieto
+ * en el primer cuadro en vez de desaparecer.
+ *
+ * Para agregar otro gato: extraer la fila del pack, dejar el PNG en
+ * `public/gatos/` y sumar su entrada a SPRITES con el tamaño de un cuadro.
+ */
+
+interface Sprite {
+	/** Ancho y alto de UN cuadro, en píxeles reales del sprite. */
+	ancho: number;
+	alto: number;
+	cuadros: number;
+	/** Duración de una vuelta completa. */
+	duracion: string;
+}
+
+const SPRITES = {
+	"naranjo-camina": { ancho: 42, alto: 32, cuadros: 6, duracion: "0.75s" },
+	"negro-lame": { ancho: 29, alto: 32, cuadros: 8, duracion: "1.6s" },
+	"blanco-duerme": { ancho: 38, alto: 21, cuadros: 2, duracion: "2.6s" },
+	"naranjo-cola": { ancho: 29, alto: 32, cuadros: 5, duracion: "1.1s" },
+} satisfies Record<string, Sprite>;
+
+export type NombreGato = keyof typeof SPRITES;
+
+interface Props {
+	gato: NombreGato;
+	/** Multiplicador de tamaño. 3 ≈ 96 px de alto para un sprite de 32. */
+	escala?: number;
+	/**
+	 * Si se indica, el gato además cruza la sección de un lado a otro. El
+	 * sentido tiene que coincidir con hacia dónde mira el sprite, o camina de
+	 * espaldas. `reposo` es dónde se queda con `prefers-reduced-motion`: sin
+	 * eso quedaría congelado en `desde`, que está fuera de pantalla.
+	 */
+	recorre?: { desde: string; hasta: string; duracion: string; reposo?: string };
+	class?: string;
+	style?: string;
+}
+
+const { gato, escala = 3, recorre, class: clase, style } = Astro.props;
+const { ancho, alto, cuadros, duracion } = SPRITES[gato];
+
+const variables = [
+	`--gato-url: url("/gatos/${gato}.png")`,
+	`--gato-ancho: ${ancho * escala}px`,
+	`--gato-alto: ${alto * escala}px`,
+	`--gato-tira: ${ancho * cuadros * escala}px`,
+	`--gato-cuadros: ${cuadros}`,
+	`--gato-duracion: ${duracion}`,
+	recorre && `--gato-desde: ${recorre.desde}`,
+	recorre && `--gato-hasta: ${recorre.hasta}`,
+	recorre && `--gato-paseo: ${recorre.duracion}`,
+	recorre && `--gato-reposo: ${recorre.reposo ?? recorre.desde}`,
+	style,
+]
+	.filter(Boolean)
+	.join("; ");
+---
+
+<span
+	class:list={["gato", recorre && "gato--recorre", clase]}
+	style={variables}
+	aria-hidden="true"
+></span>
+
+<style>
+	.gato {
+		display: block;
+		width: var(--gato-ancho);
+		height: var(--gato-alto);
+		background-image: var(--gato-url);
+		background-repeat: no-repeat;
+		background-size: var(--gato-tira) var(--gato-alto);
+		animation: gato-cuadros var(--gato-duracion)
+			steps(var(--gato-cuadros)) infinite;
+		image-rendering: pixelated;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	/* El paseo va en un envoltorio propio para no pisar la animación de cuadros. */
+	.gato--recorre {
+		animation:
+			gato-cuadros var(--gato-duracion) steps(var(--gato-cuadros)) infinite,
+			gato-paseo var(--gato-paseo) linear infinite;
+	}
+
+	@keyframes gato-cuadros {
+		to {
+			background-position-x: calc(-1 * var(--gato-tira));
+		}
+	}
+
+	@keyframes gato-paseo {
+		from {
+			transform: translateX(var(--gato-desde));
+		}
+		to {
+			transform: translateX(var(--gato-hasta));
+		}
+	}
+
+	/*
+	 * Con movimiento reducido el gato se congela en el primer cuadro. Se queda
+	 * visible a propósito: es decoración, no información, pero sacarlo dejaría
+	 * un hueco en la composición.
+	 */
+	@media (prefers-reduced-motion: reduce) {
+		.gato,
+		.gato--recorre {
+			animation: none;
+		}
+
+		.gato--recorre {
+			transform: translateX(var(--gato-reposo));
+		}
+	}
+</style>
