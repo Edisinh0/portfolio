@@ -1,3 +1,4 @@
+import { capturasDe } from "./capturas";
 import { translate, type TranslationKey } from "../i18n/translations";
 
 export type ProjectCategory =
@@ -66,22 +67,15 @@ export interface Project {
 
 const icon = (name: string) => `/stack_icons/${name}.svg`;
 
-/**
- * Portada provisional. Se reemplaza por `{ kind: "image", src: ... }` cuando
- * exista la captura en `public/projects/<slug>/cover.webp`.
- */
-const pendingCover = (
-	slug: string,
-	labelKey: TranslationKey,
-	altKey: TranslationKey,
-): ProjectMedia => ({
-	kind: "placeholder",
-	label: translate(labelKey),
-	labelKey,
-	alt: translate(altKey),
-	altKey,
-	filename: `${slug.toUpperCase().replace(/-/g, "_")}.PNG`,
-});
+
+const capturasTnaOffice = capturasDe("tna-office", "tnaOffice");
+const capturasQueueAlerts = capturasDe("queue-alerts", "queueAlerts");
+const capturasTaskflow = capturasDe("taskflow", "taskflow");
+const capturasScreenpop = capturasDe("screenpop", "screenpop");
+const capturasWiplus = capturasDe("wiplus", "wiplus");
+const capturasCongelados = capturasDe("congelados-naty", "congelados");
+const capturasTnagroup = capturasDe("tnagroup", "tnagroup");
+const capturasWhm = capturasDe("whm-provision", "whm");
 
 export const projects: Project[] = [
 	{
@@ -95,12 +89,8 @@ export const projects: Project[] = [
 		summaryKey: "project.tnaOffice.summary",
 		dialogLabelKey: "project.tnaOffice.dialogLabel",
 		category: "Sistemas",
-		cover: pendingCover(
-			"tna-office",
-			"project.tnaOffice.cover.label",
-			"project.tnaOffice.cover.alt",
-		),
-		gallery: [],
+		cover: capturasTnaOffice.cover,
+		gallery: capturasTnaOffice.gallery,
 		technologies: [
 			{ name: "FastAPI", icon: icon("fastapi") },
 			{ name: "Python", icon: icon("python") },
@@ -150,12 +140,8 @@ export const projects: Project[] = [
 		summaryKey: "project.queueAlerts.summary",
 		dialogLabelKey: "project.queueAlerts.dialogLabel",
 		category: "Sistemas",
-		cover: pendingCover(
-			"queue-alerts",
-			"project.queueAlerts.cover.label",
-			"project.queueAlerts.cover.alt",
-		),
-		gallery: [],
+		cover: capturasQueueAlerts.cover,
+		gallery: capturasQueueAlerts.gallery,
 		technologies: [
 			{ name: "Node.js", icon: icon("node") },
 			{ name: "TypeScript", icon: icon("typescript") },
@@ -205,12 +191,8 @@ export const projects: Project[] = [
 		summaryKey: "project.taskflow.summary",
 		dialogLabelKey: "project.taskflow.dialogLabel",
 		category: "Sistemas",
-		cover: pendingCover(
-			"taskflow",
-			"project.taskflow.cover.label",
-			"project.taskflow.cover.alt",
-		),
-		gallery: [],
+		cover: capturasTaskflow.cover,
+		gallery: capturasTaskflow.gallery,
 		technologies: [
 			{ name: "Laravel", icon: icon("laravel") },
 			{ name: "PHP", icon: icon("php") },
@@ -258,12 +240,8 @@ export const projects: Project[] = [
 		summaryKey: "project.screenpop.summary",
 		dialogLabelKey: "project.screenpop.dialogLabel",
 		category: "Integraciones",
-		cover: pendingCover(
-			"screenpop",
-			"project.screenpop.cover.label",
-			"project.screenpop.cover.alt",
-		),
-		gallery: [],
+		cover: capturasScreenpop.cover,
+		gallery: capturasScreenpop.gallery,
 		technologies: [
 			{ name: "PHP", icon: icon("php") },
 			{ name: "MySQL", icon: icon("mysql") },
@@ -311,12 +289,8 @@ export const projects: Project[] = [
 		summaryKey: "project.wiplus.summary",
 		dialogLabelKey: "project.wiplus.dialogLabel",
 		category: "Web",
-		cover: pendingCover(
-			"wiplus",
-			"project.wiplus.cover.label",
-			"project.wiplus.cover.alt",
-		),
-		gallery: [],
+		cover: capturasWiplus.cover,
+		gallery: capturasWiplus.gallery,
 		technologies: [
 			{ name: "Next.js", icon: icon("nextjs") },
 			{ name: "React", icon: icon("react") },
@@ -365,12 +339,8 @@ export const projects: Project[] = [
 		summaryKey: "project.congelados.summary",
 		dialogLabelKey: "project.congelados.dialogLabel",
 		category: "Sistemas",
-		cover: pendingCover(
-			"congelados-naty",
-			"project.congelados.cover.label",
-			"project.congelados.cover.alt",
-		),
-		gallery: [],
+		cover: capturasCongelados.cover,
+		gallery: capturasCongelados.gallery,
 		technologies: [
 			{ name: "FastAPI", icon: icon("fastapi") },
 			{ name: "Python", icon: icon("python") },
@@ -416,12 +386,8 @@ export const projects: Project[] = [
 		summaryKey: "project.tnagroup.summary",
 		dialogLabelKey: "project.tnagroup.dialogLabel",
 		category: "Web",
-		cover: pendingCover(
-			"tnagroup",
-			"project.tnagroup.cover.label",
-			"project.tnagroup.cover.alt",
-		),
-		gallery: [],
+		cover: capturasTnagroup.cover,
+		gallery: capturasTnagroup.gallery,
 		technologies: [
 			{ name: "React", icon: icon("react") },
 			{ name: "Vite", icon: icon("vite") },
@@ -461,12 +427,8 @@ export const projects: Project[] = [
 		summaryKey: "project.whm.summary",
 		dialogLabelKey: "project.whm.dialogLabel",
 		category: "Infraestructura",
-		cover: pendingCover(
-			"whm-provision",
-			"project.whm.cover.label",
-			"project.whm.cover.alt",
-		),
-		gallery: [],
+		cover: capturasWhm.cover,
+		gallery: capturasWhm.gallery,
 		technologies: [
 			{ name: "Bash", icon: icon("bash") },
 			{ name: "Linux", icon: icon("linux") },

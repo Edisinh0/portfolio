@@ -70,6 +70,34 @@ Todo el contenido vive en dos archivos:
 
 Para agregar un proyecto: sumar sus claves a `es` y `en`, y una entrada al arreglo `projects`.
 
+## Capturas de los proyectos
+
+No hay que tocar código para publicar una captura. El build lee
+`public/projects/` y arma tarjetas y galerías solo.
+
+```bash
+python3 scripts/capturas.py --estado   # qué falta
+python3 scripts/capturas.py            # convierte capturas/ → public/projects/
+npm run build
+```
+
+Se dejan los PNG/JPG en `capturas/<slug>/` —la portada llamada `cover`, el resto
+numerado—, el script los pasa a `.webp` de 1600 px y `src/data/capturas.ts` los
+descubre en el build. Mientras no exista `cover.webp`, la tarjeta muestra el
+recuadro provisional con el nombre del archivo que falta: nunca hay imagen rota.
+
+`capturas/` está fuera de git a propósito, porque guarda los originales sin revisar.
+
+**Antes de subir cualquier captura**, revisar la lista de datos sensibles en
+[`public/projects/LEEME.md`](public/projects/LEEME.md) — ahí está también qué
+conviene capturar de cada proyecto. Seis de los ocho son sistemas internos con
+datos de clientes reales.
+
+Para ponerle texto propio a una captura, agregar a `translations.ts` las claves
+`project.<clave>.shot.<nombre>.alt` y `.caption`, donde `<nombre>` es el archivo
+sin el número (`01-ventas.webp` → `ventas`). Si no existen, la captura se publica
+igual con el alt de la portada y sin pie.
+
 ## Pendientes
 
 1. **Las 8 capturas.** Hoy todas las portadas son un placeholder con el nombre del archivo.
