@@ -98,12 +98,12 @@ const es = {
 	"about.timeline.3.place": "Independiente",
 	"about.timeline.3.description":
 		"Diagnóstico, reparación y ensamblaje de equipos para clientes particulares.",
-	"about.timeline.4.date": "2022 — 2025",
+	"about.timeline.4.date": "2022 — 2026",
 	"about.timeline.4.type": "FORMACION_01.LOG",
 	"about.timeline.4.title": "Ingeniería en Informática",
 	"about.timeline.4.place": "Duoc UC · Sede Padre Alonso de Ovalle",
 	"about.timeline.4.description":
-		"Bases en desarrollo de software, bases de datos y análisis de sistemas.",
+		"Cursando el último año. Bases en desarrollo de software, bases de datos y análisis de sistemas.",
 
 	"contact.title": "Contacto",
 	"contact.github.action": "Visitar perfil",
@@ -461,12 +461,12 @@ const en: Record<TranslationKey, string> = {
 	"about.timeline.3.place": "Freelance",
 	"about.timeline.3.description":
 		"Diagnostics, repair, and assembly of computers for individual clients.",
-	"about.timeline.4.date": "2022 — 2025",
+	"about.timeline.4.date": "2022 — 2026",
 	"about.timeline.4.type": "EDUCATION_01.LOG",
 	"about.timeline.4.title": "Computer Engineering",
 	"about.timeline.4.place": "Duoc UC · Padre Alonso de Ovalle campus",
 	"about.timeline.4.description":
-		"Foundations in software development, databases, and systems analysis.",
+		"Currently in my final year. Foundations in software development, databases, and systems analysis.",
 
 	"contact.title": "Contact",
 	"contact.github.action": "Visit profile",
