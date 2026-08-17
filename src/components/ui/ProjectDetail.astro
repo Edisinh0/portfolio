@@ -53,10 +53,24 @@ const titleId = `project-${project.slug}-title`;
 			</h1>
 		</div>
 
-		<div class={styles.windowControls} aria-hidden="true">
-			<span class:list={[styles.windowControl, styles.minimize]}></span>
-			<span class:list={[styles.windowControl, styles.maximize]}></span>
-			<span class:list={[styles.windowControl, styles.close]}></span>
+		{/*
+		 * Minimizar y maximizar son adorno de la ventana y quedan ocultos para
+		 * el lector de pantalla. Cerrar sí hace algo —vuelve al listado, igual
+		 * que el botón de la izquierda—, así que es un enlace de verdad con su
+		 * etiqueta. Por eso el aria-hidden va en cada adorno y no en el
+		 * contenedor: envolverlos a todos escondería también el enlace, que
+		 * seguiría recibiendo foco al tabular.
+		 */}
+		<div class={styles.windowControls}>
+			<span class:list={[styles.windowControl, styles.minimize]} aria-hidden="true"></span>
+			<span class:list={[styles.windowControl, styles.maximize]} aria-hidden="true"></span>
+			<a
+				class:list={[styles.windowControl, styles.close]}
+				href="/#proyectos"
+				aria-label={translate("projectDetail.back")}
+				data-i18n-attrs
+				data-i18n-attr-aria-label="projectDetail.back"
+			></a>
 		</div>
 	</header>
 

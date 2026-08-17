@@ -71,6 +71,7 @@
 .thumbnail:focus-visible,
 .stageArrow:focus-visible,
 .dot:focus-visible,
+.close:focus-visible,
 .dialogClose:focus-visible,
 .projectLinks a:focus-visible,
 .projectNavigation a:focus-visible {
@@ -173,6 +174,21 @@
 
 .close::after {
 	transform: rotate(-45deg);
+}
+
+/* Es un enlace al listado, así que se comporta como botón al pasar y apretar. */
+.close {
+	cursor: pointer;
+}
+
+.close:hover {
+	background: #e5d3ae;
+}
+
+.close:active {
+	border-style: inset;
+	box-shadow: none;
+	transform: translate(1px, 1px);
 }
 
 .projectContent {
