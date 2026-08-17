@@ -83,20 +83,42 @@ import { translate } from "../../i18n/translations";
 			<span data-i18n="hero.contact">{translate("hero.contact")}</span>
 		</a>
 
-		<a
-			class="hero-button hero-button--cv"
-			href="/cv.html"
-			target="_blank"
-			rel="noreferrer"
-			title={translate("hero.downloadCv")}
-			data-i18n-attrs
-			data-i18n-attr-title="hero.downloadCv"
-		>
-			<svg viewBox="0 0 24 24" aria-hidden="true">
-				<path d="M6 2.5h8l4 4v15H6zM14 2.5v4h4M9 12h6M9 16h6" />
-			</svg>
-			<span>CV</span>
-		</a>
+		<div class="cv-menu" data-cv-menu>
+			<button
+				type="button"
+				class="hero-button hero-button--cv"
+				data-cv-toggle
+				aria-expanded="false"
+				aria-controls="cv-idiomas"
+				title={translate("hero.downloadCv")}
+				data-i18n-attrs
+				data-i18n-attr-title="hero.downloadCv"
+			>
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M6 2.5h8l4 4v15H6zM14 2.5v4h4M9 12h6M9 16h6" />
+				</svg>
+				<span>CV</span>
+				<span class="cv-menu__caret" aria-hidden="true">▾</span>
+			</button>
+
+			{/*
+			 * Los nombres de los idiomas van cada uno en su propio idioma y no
+			 * traducidos: quien busca el CV en inglés reconoce "English" aunque
+			 * el sitio esté en español. Por eso tampoco pasan por el i18n.
+			 */}
+			<div
+				class="cv-menu__list"
+				id="cv-idiomas"
+				data-cv-list
+				hidden
+				aria-label={translate("hero.downloadCv")}
+				data-i18n-attrs
+				data-i18n-attr-aria-label="hero.downloadCv"
+			>
+				<a href="/cv.html" target="_blank" rel="noreferrer" lang="es">Español</a>
+				<a href="/cv-en.html" target="_blank" rel="noreferrer" lang="en">English</a>
+			</div>
+		</div>
 	</div>
 
 </section>
@@ -601,4 +623,99 @@ import { translate } from "../../i18n/translations";
 			transition: none;
 		}
 	}
+
+	/* ── Menú de idioma del CV ─────────────────────────────────────────── */
+
+	.cv-menu {
+		position: relative;
+		display: inline-flex;
+	}
+
+	.cv-menu__caret {
+		margin-left: -4px;
+		font-size: 0.8em;
+		line-height: 1;
+	}
+
+	/*
+	 * Cuelga del botón sin empujar la fila. El ancho mínimo lo marca el
+	 * propio botón para que el desplegable nunca salga más angosto que él.
+	 */
+	.cv-menu__list {
+		position: absolute;
+		z-index: 20;
+		top: calc(100% + 6px);
+		left: 0;
+		display: flex;
+		min-width: 100%;
+		flex-direction: column;
+		border: 3px outset #c9b998;
+		background: rgb(224 210 183 / 97%);
+		box-shadow: 3px 4px 0 rgb(45 39 26 / 35%);
+	}
+
+	.cv-menu__list[hidden] {
+		display: none;
+	}
+
+	.cv-menu__list a {
+		padding: 11px 18px;
+		color: var(--ink);
+		font-size: clamp(1rem, 1.2vw, 1.25rem);
+		line-height: 1;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.cv-menu__list a + a {
+		border-top: 2px groove #c0ad8b;
+	}
+
+	.cv-menu__list a:hover,
+	.cv-menu__list a:focus-visible {
+		background: #17483c;
+		color: #f0e8d6;
+	}
+
+	.cv-menu__list a:focus-visible {
+		outline: 3px dashed #f0d69f;
+		outline-offset: -5px;
+	}
 </style>
+
+<script>
+	/*
+	 * El botón del CV abre un menú con los dos idiomas en vez de descargar
+	 * uno directo. Se cierra al elegir, al hacer clic fuera y con Escape,
+	 * devolviendo el foco al botón — si no, al cerrar con teclado el foco
+	 * queda suelto al final del documento.
+	 */
+	const menu = document.querySelector<HTMLElement>("[data-cv-menu]");
+	const toggle = menu?.querySelector<HTMLButtonElement>("[data-cv-toggle]");
+	const list = menu?.querySelector<HTMLElement>("[data-cv-list]");
+
+	if (menu && toggle && list) {
+		const setOpen = (open: boolean) => {
+			list.hidden = !open;
+			toggle.setAttribute("aria-expanded", String(open));
+		};
+
+		toggle.addEventListener("click", () => {
+			setOpen(list.hidden);
+		});
+
+		list.addEventListener("click", (event) => {
+			if ((event.target as HTMLElement).closest("a")) setOpen(false);
+		});
+
+		document.addEventListener("click", (event) => {
+			if (!menu.contains(event.target as Node)) setOpen(false);
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (event.key !== "Escape" || list.hidden) return;
+			setOpen(false);
+			toggle.focus();
+		});
+	}
+</script>

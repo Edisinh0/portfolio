@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résumé — Eddie Cerpa Navarro</title>
+  <link rel="stylesheet" href="/cv.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Eddie Jesús Cerpa Navarro</h1>
+    <div class="contact-line">
+      +56 9 3038 9752
+      <span>|</span>
+      ed.cerpa@duocuc.cl
+      <span>|</span>
+      Pedro Aguirre Cerda, Santiago Metropolitan Region, Chile
+      <span>|</span>
+      linkedin.com/in/eddiecerpa
+    </div>
+  </div>
+  <hr class="header-rule">
+
+  <!-- PROFESSIONAL SUMMARY -->
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <p class="about-text">
+      FullStack developer in the final year of a Computer Engineering degree (Duoc UC). I build and ship business systems end to end and run them in production, with <strong>Python/FastAPI</strong>, <strong>PHP/Laravel</strong> and <strong>Node.js/TypeScript</strong> on the backend, and <strong>React, Next.js and Vue 3</strong> on the frontend over MariaDB. Strong on <strong>integrations</strong> (electronic invoicing, payment gateways, transactional email and IP phone systems) and on <strong>DevOps</strong>: Docker, Linux servers, Apache/Nginx and automated deployments.
+    </p>
+  </div>
+
+  <!-- WORK EXPERIENCE -->
+  <div class="section">
+    <div class="section-title">Work Experience</div>
+
+    <!-- iContel -->
+    <div class="exp-item">
+      <div class="exp-row-top">
+        <div class="exp-title">FullStack Developer</div>
+        <div class="exp-date">November 2025 — Present</div>
+      </div>
+      <div class="exp-row-bottom">
+        <div class="exp-company">iContel — TNA Group</div>
+        <div class="exp-location">Santiago, Chile · On-site</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>I develop the <strong>group's internal ERP</strong> (~35 modules: sales, invoicing, clients, rentals, bookings and P&amp;L statements) with <strong>FastAPI + MariaDB + React</strong>, in production and used daily by the sales and front-desk teams.</li>
+        <li>I designed its <strong>third-party integrations</strong>: electronic invoicing with <strong>Bsale</strong> (receipts, invoices, credit notes and stock syncing), payment links with <strong>Duemint</strong>, and transactional notifications with <strong>SendGrid</strong>.</li>
+        <li>I built products for IP telephony clients: a <strong>call-center monitoring and alerting system on top of 3CX</strong> (Node.js/TypeScript + React, real time over WebSocket and SSE) and the <strong>telephony–helpdesk integration</strong> that opens a pre-filled ticket the moment a call is answered.</li>
+        <li>I delivered a <strong>workflow and SLA platform</strong> in <strong>Laravel 12 + Vue 3</strong>: task dependencies with cascading blocks, automatic SLA alerts, real-time notifications and exportable reports.</li>
+        <li>I own <strong>deployment and infrastructure</strong>: Docker, Linux servers, Apache/Nginx as a reverse proxy, SSL, WHM/cPanel hosting, and in-house deploy scripts with automated migrations.</li>
+        <li>I applied <strong>security and quality</strong> practices: JWT authentication with roles, rate limiting, secret encryption, centralized logging and automated tests (Vitest / PHPUnit).</li>
+      </ul>
+    </div>
+
+    <!-- EUS -->
+    <div class="exp-item">
+      <div class="exp-row-top">
+        <div class="exp-title">IT Systems Support</div>
+        <div class="exp-date">May 2025 — October 2025</div>
+      </div>
+      <div class="exp-row-bottom">
+        <div class="exp-company">End User Services (EUS)</div>
+        <div class="exp-location">Santiago, Chile · Hybrid</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Provided technical support to <strong>IBM</strong> corporate users: installation, configuration and maintenance of hardware, software and networks.</li>
+        <li>Diagnosed and resolved incidents on site and in offices, keeping operations running and end users satisfied.</li>
+      </ul>
+    </div>
+
+    <!-- Freelance -->
+    <div class="exp-item">
+      <div class="exp-row-top">
+        <div class="exp-title">Hardware Technician (Freelance)</div>
+        <div class="exp-date">April 2018 — April 2024</div>
+      </div>
+      <div class="exp-row-bottom">
+        <div class="exp-company">Self-employed</div>
+        <div class="exp-location">Hybrid</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Diagnostics, repair and assembly of computers; on-site and remote technical support for individual clients.</li>
+      </ul>
+    </div>
+
+    <!-- Previous -->
+    <div class="exp-item">
+      <div class="exp-row-top">
+        <div class="exp-title">Earlier customer-facing experience</div>
+        <div class="exp-date">March 2022 — December 2024</div>
+      </div>
+      <div class="exp-row-bottom">
+        <div class="exp-company">Inditex (Zara) · McDonald's (Arcos Dorados)</div>
+        <div class="exp-location">Santiago, Chile · On-site</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Customer service, cash handling and inventory control in fast-paced, high-pressure environments.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SELECTED PROJECTS -->
+  <div class="section">
+    <div class="section-title">Selected Projects</div>
+
+    <div class="proj-item">
+      <div class="proj-name">TNA Office — business management ERP <span class="proj-stack">· FastAPI · MariaDB · React</span></div>
+      <div class="proj-desc">Sales and electronic invoicing, quotes with PDF export, office rentals, calendar bookings and P&amp;L statements. Includes a public site with a catalog and online reservations.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-name">3CX Queue Alerts — call-center monitoring <span class="proj-stack">· Node.js · TypeScript · React · Docker</span></div>
+      <div class="proj-desc">Multi-tenant product that watches phone queues and alerts by email (queues with no agents, missed or waiting calls), with a client-configurable dashboard and live data over WebSocket and SSE.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-name">Taskflow — workflows and SLAs <span class="proj-stack">· Laravel 12 · Vue 3 · Redis · Docker Compose</span></div>
+      <div class="proj-desc">Task dependency graph with cascading blocks, automatic progress tracking, SLA control with real-time notifications, and reports exportable to PDF/CSV.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-name">Telephony ↔ helpdesk integration <span class="proj-stack">· 3CX · osTicket · PHP · WhatsApp Business</span></div>
+      <div class="proj-desc">Answering a call opens a ticket pre-filled with the caller's details and the reason picked in the IVR. Includes in-house IVR bots and ticket creation from WhatsApp.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-name">Websites and automation <span class="proj-stack">· Next.js · React 19 · Tailwind · Bash · AlmaLinux</span></div>
+      <div class="proj-desc">An ISP landing page with its own panel so the client can edit plans and prices without a developer; a corporate site; an e-commerce store with inventory management; and automated provisioning of WHM/cPanel servers.</div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">Education</div>
+
+    <div class="edu-item">
+      <div class="edu-row-top">
+        <div class="edu-degree">Computer Engineering</div>
+        <div class="edu-date">2022 — 2026</div>
+      </div>
+      <div class="edu-school">Duoc UC — Padre Alonso de Ovalle campus, Santiago, Chile</div>
+      <div class="edu-note">Status: Currently in the final year</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-row-top">
+        <div class="edu-degree">Public Accounting / Auditing</div>
+        <div class="edu-date">2019 — 2021</div>
+      </div>
+      <div class="edu-school">Universidad Diego Portales, School of Economics and Business, Santiago, Chile</div>
+      <div class="edu-note">Status: Incomplete (3 years completed) · Background in accounting, cost management and Microsoft Office certifications</div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="section">
+    <div class="section-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-cat">Languages:</span><span class="skill-val">Python, PHP, TypeScript, JavaScript, SQL</span></div>
+      <div class="skill-row"><span class="skill-cat">Backend:</span><span class="skill-val">FastAPI, Laravel, Node.js, REST APIs</span></div>
+      <div class="skill-row"><span class="skill-cat">Frontend:</span><span class="skill-val">React, Next.js, Vue 3, Vite, Tailwind CSS</span></div>
+      <div class="skill-row"><span class="skill-cat">Databases:</span><span class="skill-val">MariaDB, MySQL, SQLAlchemy, Redis</span></div>
+      <div class="skill-row"><span class="skill-cat">DevOps:</span><span class="skill-val">Docker, Linux, Apache, Nginx, WHM/cPanel</span></div>
+      <div class="skill-row"><span class="skill-cat">Real time:</span><span class="skill-val">WebSockets, Server-Sent Events</span></div>
+      <div class="skill-row"><span class="skill-cat">Security:</span><span class="skill-val">JWT, roles, rate limiting, secret encryption</span></div>
+      <div class="skill-row"><span class="skill-cat">Tooling:</span><span class="skill-val">Git/GitHub, Vitest, PHPUnit, ESLint</span></div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS AND LANGUAGES -->
+  <div class="section">
+    <div class="section-title">Certifications and Languages</div>
+    <div class="cert-item"><strong>Software Development Professional Foundations</strong> — Microsoft + LinkedIn Learning (2023) · <strong>Programming Foundations: Fundamentals</strong> — LinkedIn Learning (2023) · <strong>Microsoft Excel, Advanced Level</strong></div>
+    <div class="cert-item"><strong>Languages:</strong> Spanish (native) · English (intermediate — fluent technical reading)</div>
+  </div>
+
+</div>
+</body>
+</html>
