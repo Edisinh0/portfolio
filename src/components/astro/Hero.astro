@@ -98,7 +98,7 @@ import { translate } from "../../i18n/translations";
 					<path d="M6 2.5h8l4 4v15H6zM14 2.5v4h4M9 12h6M9 16h6" />
 				</svg>
 				<span>CV</span>
-				<span class="cv-menu__caret" aria-hidden="true">▾</span>
+				<span class="cv-menu__caret" aria-hidden="true">▴</span>
 			</button>
 
 			{/*
@@ -631,27 +631,36 @@ import { translate } from "../../i18n/translations";
 		display: inline-flex;
 	}
 
+	/* Apunta hacia donde va a aparecer el menú, y se da vuelta al abrirlo. */
 	.cv-menu__caret {
 		margin-left: -4px;
 		font-size: 0.8em;
 		line-height: 1;
+		transition: transform 120ms ease;
+	}
+
+	[aria-expanded="true"] .cv-menu__caret {
+		transform: rotate(180deg);
 	}
 
 	/*
-	 * Cuelga del botón sin empujar la fila. El ancho mínimo lo marca el
-	 * propio botón para que el desplegable nunca salga más angosto que él.
+	 * Se abre hacia arriba y no hacia abajo: el hero recorta con
+	 * `overflow: hidden` y la fila de botones vive al 70% de su alto, así que
+	 * en pantallas bajas un menú que cuelga se corta. Arriba siempre sobra
+	 * espacio. El ancho mínimo lo marca el propio botón para que el
+	 * desplegable nunca salga más angosto que él.
 	 */
 	.cv-menu__list {
 		position: absolute;
 		z-index: 20;
-		top: calc(100% + 6px);
+		bottom: calc(100% + 7px);
 		left: 0;
 		display: flex;
 		min-width: 100%;
 		flex-direction: column;
 		border: 3px outset #c9b998;
-		background: rgb(224 210 183 / 97%);
-		box-shadow: 3px 4px 0 rgb(45 39 26 / 35%);
+		background: #e6d8bd;
+		box-shadow: 3px 4px 0 rgb(45 39 26 / 35%), inset 0 0 0 1px rgb(255 255 255 / 45%);
 	}
 
 	.cv-menu__list[hidden] {
@@ -659,12 +668,27 @@ import { translate } from "../../i18n/translations";
 	}
 
 	.cv-menu__list a {
-		padding: 11px 18px;
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		padding: 12px 20px;
 		color: var(--ink);
 		font-size: clamp(1rem, 1.2vw, 1.25rem);
 		line-height: 1;
 		text-decoration: none;
 		white-space: nowrap;
+	}
+
+	/* La flecha marca la fila apuntada, como en los menús de la época. */
+	.cv-menu__list a::before {
+		width: 0.7em;
+		color: transparent;
+		content: "▸";
+	}
+
+	.cv-menu__list a:hover::before,
+	.cv-menu__list a:focus-visible::before {
+		color: currentcolor;
 	}
 
 	.cv-menu__list a + a {
