@@ -198,28 +198,6 @@ const titleId = `project-${project.slug}-title`;
 				</p>
 
 				<div
-					class={styles.dotRail}
-					role="group"
-					aria-label={translate("projectDetail.selectCapture")}
-					data-i18n-attrs
-					data-i18n-attr-aria-label="projectDetail.selectCapture"
-				>
-					{
-						galleryMedia.map((media, index) => (
-							<button
-								type="button"
-								class={styles.dot}
-								data-gallery-dot
-								aria-label={media.filename}
-								aria-current={index === 0 ? "true" : "false"}
-							>
-								<span class={styles.dotMark} aria-hidden="true" />
-							</button>
-						))
-					}
-				</div>
-
-				<div
 					class={styles.thumbnailRail}
 					role="group"
 					aria-label={translate("projectDetail.selectCapture")}
@@ -257,6 +235,28 @@ const titleId = `project-${project.slug}-title`;
 								<span class={styles.thumbnailIndex}>
 									{String(index + 1).padStart(2, "0")}
 								</span>
+							</button>
+						))
+					}
+				</div>
+
+				<div
+					class={styles.dotRail}
+					role="group"
+					aria-label={translate("projectDetail.selectCapture")}
+					data-i18n-attrs
+					data-i18n-attr-aria-label="projectDetail.selectCapture"
+				>
+					{
+						galleryMedia.map((media, index) => (
+							<button
+								type="button"
+								class={styles.dot}
+								data-gallery-dot
+								aria-label={media.filename}
+								aria-current={index === 0 ? "true" : "false"}
+							>
+								<span class={styles.dotMark} aria-hidden="true" />
 							</button>
 						))
 					}
