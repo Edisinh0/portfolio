@@ -164,8 +164,37 @@ const es = {
 		"ERP de gestión comercial con facturación electrónica, en uso diario.",
 	"project.tnaOffice.dialogLabel": "Vista ampliada de la galería de TNA Office",
 	"project.tnaOffice.cover.alt":
-		"Espacio reservado para una captura del panel de TNA Office",
+		"Pantalla de acceso a TNA Office, con los módulos del sistema al costado",
 	"project.tnaOffice.cover.label": "TNA_OFFICE.PNG",
+	// Los datos de clientes van tapados: ver scripts/censurar.py.
+	"project.tnaOffice.shot.dashboard.alt":
+		"Panel de inicio con alertas de contratos vencidos y el calendario de reservas",
+	"project.tnaOffice.shot.dashboard.caption":
+		"Contratos vencidos, pagos pendientes y calendario de reservas.",
+	"project.tnaOffice.shot.recursos.alt":
+		"Catálogo de salas de reunión y casetas telefónicas con foto y capacidad",
+	"project.tnaOffice.shot.recursos.caption":
+		"Salas y casetas con capacidad, equipamiento y próximas reservas.",
+	"project.tnaOffice.shot.clientes.alt":
+		"Cartera de clientes con sus contactos, documentos y totales facturados",
+	"project.tnaOffice.shot.clientes.caption":
+		"Cartera sincronizada con Bsale: contactos, documentos y facturación.",
+	"project.tnaOffice.shot.cotizaciones.alt":
+		"Listado de cotizaciones con su estado, monto en UF y acciones de PDF",
+	"project.tnaOffice.shot.cotizaciones.caption":
+		"Cotizaciones de oficinas y estacionamientos, con estado y PDF.",
+	"project.tnaOffice.shot.ventas.alt":
+		"Ventas del mes desglosadas por forma de pago, con las facturas por emitir",
+	"project.tnaOffice.shot.ventas.caption":
+		"Ventas del mes por forma de pago y facturas pendientes de emitir.",
+	"project.tnaOffice.shot.usuarios.alt":
+		"Listado de usuarios del sistema con su rol y perfil de permisos",
+	"project.tnaOffice.shot.usuarios.caption":
+		"Usuarios y perfiles de permisos: admin, recepcionista y cliente.",
+	"project.tnaOffice.shot.reportes.alt":
+		"Generador de reportes con las columnas a incluir y la salida en Excel o PDF",
+	"project.tnaOffice.shot.reportes.caption":
+		"Reportes de oficinas y contactos: se eligen columnas, salen en Excel o PDF.",
 	"project.tnaOffice.access": "Sistema interno · acceso por VPN",
 	"project.tnaOffice.description.1":
 		"La operación comercial vivía repartida entre planillas Excel y un sistema de facturación aparte. Cada venta se digitaba dos veces y nadie sabía el estado real del mes hasta cerrarlo.",
@@ -527,8 +556,37 @@ const en: Record<TranslationKey, string> = {
 		"Business management ERP with electronic invoicing, in daily use.",
 	"project.tnaOffice.dialogLabel": "Expanded gallery view for TNA Office",
 	"project.tnaOffice.cover.alt":
-		"Reserved space for a screenshot of the TNA Office dashboard",
+		"TNA Office sign-in screen, with the system modules listed alongside",
 	"project.tnaOffice.cover.label": "TNA_OFFICE.PNG",
+	// Client data is redacted: see scripts/censurar.py.
+	"project.tnaOffice.shot.dashboard.alt":
+		"Home dashboard with overdue-contract alerts and the booking calendar",
+	"project.tnaOffice.shot.dashboard.caption":
+		"Overdue contracts, outstanding payments and the booking calendar.",
+	"project.tnaOffice.shot.recursos.alt":
+		"Catalog of meeting rooms and phone booths with photo and capacity",
+	"project.tnaOffice.shot.recursos.caption":
+		"Rooms and phone booths with capacity, equipment and upcoming bookings.",
+	"project.tnaOffice.shot.clientes.alt":
+		"Client portfolio showing contacts, documents and invoiced totals",
+	"project.tnaOffice.shot.clientes.caption":
+		"Portfolio synced with Bsale: contacts, documents and billing.",
+	"project.tnaOffice.shot.cotizaciones.alt":
+		"Quote list with status, amount in UF and PDF actions",
+	"project.tnaOffice.shot.cotizaciones.caption":
+		"Quotes for offices and parking spaces, with status and PDF.",
+	"project.tnaOffice.shot.ventas.alt":
+		"Monthly sales broken down by payment method, with invoices left to issue",
+	"project.tnaOffice.shot.ventas.caption":
+		"Monthly sales by payment method and invoices pending issue.",
+	"project.tnaOffice.shot.usuarios.alt":
+		"System user list with each role and permission profile",
+	"project.tnaOffice.shot.usuarios.caption":
+		"Users and permission profiles: admin, receptionist and client.",
+	"project.tnaOffice.shot.reportes.alt":
+		"Report builder showing the columns to include and Excel or PDF output",
+	"project.tnaOffice.shot.reportes.caption":
+		"Office and contact reports: pick the columns, export to Excel or PDF.",
 	"project.tnaOffice.access": "Internal system · VPN access",
 	"project.tnaOffice.description.1":
 		"Commercial operations were split between Excel spreadsheets and a separate invoicing system. Every sale was typed in twice, and nobody knew where the month really stood until they closed it.",
