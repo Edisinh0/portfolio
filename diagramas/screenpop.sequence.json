@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "ScreenPop: from IVR choice to a prefilled ticket",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [1040, 580]
+  },
+  "participants": [
+    { "id": "caller", "type": "external", "label": "Caller", "sublabel": "dials support" },
+    { "id": "pbx", "type": "external", "label": "3CX PBX", "sublabel": "IVR in Call Flow Designer" },
+    { "id": "bridge", "type": "backend", "label": "PHP Bridge", "sublabel": "service across networks" },
+    { "id": "osticket", "type": "backend", "label": "osTicket", "sublabel": "help desk" },
+    { "id": "agent", "type": "frontend", "label": "Agent", "sublabel": "3CX CRM template" }
+  ],
+  "segments": [
+    { "from": 142, "to": 250, "label": "IVR captures the reason" },
+    { "from": 264, "to": 344, "label": "Bridge across networks" },
+    { "from": 358, "to": 490, "label": "Ticket opens on answer" }
+  ],
+  "messages": [
+    { "id": "call", "from": "caller", "to": "pbx", "y": 168, "label": "calls support", "variant": "default" },
+    { "id": "menu", "from": "pbx", "to": "caller", "y": 202, "label": "options menu", "variant": "default" },
+    { "id": "pick", "from": "caller", "to": "pbx", "y": 236, "label": "picks the reason", "variant": "emphasis" },
+    { "id": "send", "from": "pbx", "to": "bridge", "y": 288, "label": "number + menu choice", "variant": "emphasis" },
+    { "id": "store", "from": "bridge", "to": "osticket", "y": 326, "label": "stores the caller's reason", "variant": "default" },
+    { "id": "route", "from": "pbx", "to": "agent", "y": 384, "label": "routes the call, agent answers", "variant": "default" },
+    { "id": "pop", "from": "agent", "to": "osticket", "y": 424, "label": "CRM template opens the case", "variant": "emphasis" },
+    { "id": "prefilled", "from": "osticket", "to": "agent", "y": 462, "label": "form already prefilled", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "bridge", "from": 280, "to": 336 }
+  ]
+}

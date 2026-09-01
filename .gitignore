@@ -29,3 +29,4 @@ capturas/
 # Diagramas: el .json es la fuente y se versiona; el .html lo genera archify
 # y pesa ~700 KB, asi que se reconstruye con `archify deliver`.
 diagramas/*.html
+diagramas/*.visual-check.*

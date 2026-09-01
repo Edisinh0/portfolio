@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Taskflow: dependencies that block and release work",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "people", "label": "People" },
+    { "id": "app", "label": "Taskflow · Laravel + Vue" },
+    { "id": "signals", "label": "Alerts & reports" }
+  ],
+  "nodes": [
+    { "id": "define", "lane": "people", "col": 0, "type": "external", "label": "Manager", "sublabel": "defines the flow", "width": 132 },
+    { "id": "graph", "lane": "app", "col": 1, "type": "backend", "label": "Dependency graph", "sublabel": "tasks and blockers", "width": 140 },
+    { "id": "locked", "lane": "app", "col": 2, "type": "backend", "label": "Task locked", "sublabel": "waiting on blockers", "width": 140 },
+    { "id": "unlock", "lane": "app", "col": 3, "type": "backend", "label": "Cascade unlock", "sublabel": "blockers cleared", "width": 140 },
+    { "id": "rollup", "lane": "app", "col": 4, "type": "backend", "label": "Progress rolls up", "sublabel": "parent totals", "width": 140 },
+    { "id": "sla", "lane": "signals", "col": 2, "type": "backend", "label": "SLA watcher", "sublabel": "deadline at risk", "width": 132 },
+    { "id": "notify", "lane": "signals", "col": 3, "type": "frontend", "label": "Live notification", "sublabel": "Reverb WebSocket", "width": 140 },
+    { "id": "reports", "lane": "signals", "col": 5, "type": "backend", "label": "Reports", "sublabel": "PDF and CSV", "width": 132 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "define", "to": "graph", "label": "sets dependencies", "variant": "default" },
+    { "id": "e2", "from": "graph", "to": "locked", "label": "applies blockers", "variant": "default" },
+    { "id": "e3", "from": "locked", "to": "unlock", "label": "blockers complete", "variant": "emphasis" },
+    { "id": "e4", "from": "unlock", "to": "rollup", "label": "recomputes", "variant": "default" },
+    { "id": "e5", "from": "unlock", "to": "notify", "label": "assignee alerted", "variant": "emphasis" },
+    { "id": "e6", "from": "locked", "to": "sla", "label": "watched", "variant": "default" },
+    { "id": "e7", "from": "sla", "to": "notify", "label": "deadline at risk", "variant": "default" },
+    { "id": "e8", "from": "rollup", "to": "reports", "label": "exported", "variant": "default" }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Queue Alerts: watching 3CX call queues per tenant",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      900,
+      540
+    ]
+  },
+  "components": [
+    {
+      "id": "pbx",
+      "type": "external",
+      "label": "3CX PBX",
+      "sublabel": "customer phone system",
+      "pos": [
+        40,
+        230
+      ],
+      "size": [
+        132,
+        64
+      ]
+    },
+    {
+      "id": "mock",
+      "type": "backend",
+      "label": "Mock PBX",
+      "sublabel": "demo without hardware",
+      "pos": [
+        40,
+        400
+      ],
+      "size": [
+        132,
+        58
+      ]
+    },
+    {
+      "id": "service",
+      "type": "backend",
+      "label": "Alert Service",
+      "sublabel": "Fastify · Zod · croner",
+      "pos": [
+        380,
+        225
+      ],
+      "size": [
+        160,
+        84
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "SQLite",
+      "sublabel": "thresholds + audit",
+      "pos": [
+        390,
+        400
+      ],
+      "size": [
+        140,
+        62
+      ]
+    },
+    {
+      "id": "mail",
+      "type": "external",
+      "label": "SMTP",
+      "sublabel": "alert email",
+      "pos": [
+        660,
+        130
+      ],
+      "size": [
+        132,
+        62
+      ]
+    },
+    {
+      "id": "panel",
+      "type": "frontend",
+      "label": "Admin Panel",
+      "sublabel": "React + Vite",
+      "pos": [
+        660,
+        290
+      ],
+      "size": [
+        140,
+        62
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "pbx",
+      "to": "service",
+      "label": "OData polling + Call Control events",
+      "variant": "emphasis"
+    },
+    {
+      "from": "mock",
+      "to": "service",
+      "label": "simulated queues",
+      "variant": "dashed"
+    },
+    {
+      "from": "service",
+      "to": "store",
+      "label": "thresholds + audit",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "from": "service",
+      "to": "mail",
+      "label": "threshold breached"
+    },
+    {
+      "from": "service",
+      "to": "panel",
+      "label": "live updates over SSE",
+      "variant": "emphasis"
+    }
+  ]
+}
