@@ -222,7 +222,7 @@ const es = {
 		"Monitoreo y alertas de colas de call center sobre centrales 3CX.",
 	"project.queueAlerts.dialogLabel": "Vista ampliada de la galería de 3CX Queue Alerts",
 	"project.queueAlerts.cover.alt":
-		"Diagrama de arquitectura: el servicio vigila las colas de la central 3CX, guarda los umbrales en SQLite y avisa por correo",
+		"Espacio reservado para una captura del panel de 3CX Queue Alerts",
 	"project.queueAlerts.cover.label": "QUEUE_ALERTS.PNG",
 	"project.queueAlerts.access": "Producto para cliente · instancia privada",
 	"project.queueAlerts.description.1":
@@ -251,7 +251,7 @@ const es = {
 	"project.taskflow.summary":
 		"Gestión de flujos de trabajo con dependencias y control de SLA.",
 	"project.taskflow.dialogLabel": "Vista ampliada de la galería de Taskflow",
-	"project.taskflow.cover.alt": "Diagrama de flujo: cada tarea queda bloqueada hasta que terminan sus dependencias, y el avance sube por la jerarquía",
+	"project.taskflow.cover.alt": "Espacio reservado para una captura de Taskflow",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
 	"project.taskflow.access": "Sistema interno · acceso por VPN",
 	"project.taskflow.description.1":
@@ -278,7 +278,7 @@ const es = {
 	"project.screenpop.dialogLabel":
 		"Vista ampliada de la galería de la integración de telefonía",
 	"project.screenpop.cover.alt":
-		"Diagrama de secuencia: la llamada pasa por el IVR y el puente PHP hasta que osTicket abre el ticket prellenado",
+		"Espacio reservado para un diagrama de la integración entre 3CX y osTicket",
 	"project.screenpop.cover.label": "SCREENPOP.PNG",
 	"project.screenpop.access": "Integración en central de cliente",
 	"project.screenpop.description.1":
@@ -374,7 +374,7 @@ const es = {
 		"Levantar un servidor WHM/cPanel completo pasó de un día a una hora.",
 	"project.whm.dialogLabel": "Vista ampliada de la galería del provisionamiento WHM",
 	"project.whm.cover.alt":
-		"Diagrama de ciclo de vida: del servidor en blanco al servidor listo, pasando por la instalación desatendida y el health-check",
+		"Espacio reservado para una captura del instalador desatendido de AlmaLinux",
 	"project.whm.cover.label": "WHM_SETUP.PNG",
 	"project.whm.access": "Herramienta interna de infraestructura",
 	"project.whm.description.1":
@@ -614,7 +614,7 @@ const en: Record<TranslationKey, string> = {
 		"Call center queue monitoring and alerting for 3CX phone systems.",
 	"project.queueAlerts.dialogLabel": "Expanded gallery view for 3CX Queue Alerts",
 	"project.queueAlerts.cover.alt":
-		"Architecture diagram: the service watches the 3CX queues, keeps thresholds in SQLite and alerts by email",
+		"Reserved space for a screenshot of the 3CX Queue Alerts dashboard",
 	"project.queueAlerts.cover.label": "QUEUE_ALERTS.PNG",
 	"project.queueAlerts.access": "Client product · private instance",
 	"project.queueAlerts.description.1":
@@ -640,7 +640,7 @@ const en: Record<TranslationKey, string> = {
 	"project.taskflow.title": "Taskflow",
 	"project.taskflow.summary": "Workflow management with dependencies and SLA tracking.",
 	"project.taskflow.dialogLabel": "Expanded gallery view for Taskflow",
-	"project.taskflow.cover.alt": "Workflow diagram: each task stays locked until its dependencies finish, and progress rolls up the hierarchy",
+	"project.taskflow.cover.alt": "Reserved space for a screenshot of Taskflow",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
 	"project.taskflow.access": "Internal system · VPN access",
 	"project.taskflow.description.1":
@@ -665,7 +665,7 @@ const en: Record<TranslationKey, string> = {
 	"project.screenpop.dialogLabel":
 		"Expanded gallery view for the telephony integration",
 	"project.screenpop.cover.alt":
-		"Sequence diagram: the call runs through the IVR and the PHP bridge until osTicket opens the ticket prefilled",
+		"Reserved space for a diagram of the 3CX to osTicket integration",
 	"project.screenpop.cover.label": "SCREENPOP.PNG",
 	"project.screenpop.access": "Integration on a client phone system",
 	"project.screenpop.description.1":
@@ -757,7 +757,7 @@ const en: Record<TranslationKey, string> = {
 		"Standing up a full WHM/cPanel server went from a day to an hour.",
 	"project.whm.dialogLabel": "Expanded gallery view for the WHM provisioning project",
 	"project.whm.cover.alt":
-		"Lifecycle diagram: from a bare server to a ready one, through the unattended install and the health check",
+		"Reserved space for a screenshot of the unattended AlmaLinux installer",
 	"project.whm.cover.label": "WHM_SETUP.PNG",
 	"project.whm.access": "Internal infrastructure tooling",
 	"project.whm.description.1":
