@@ -251,7 +251,7 @@ const es = {
 	"project.taskflow.summary":
 		"Gestión de flujos de trabajo con dependencias y control de SLA.",
 	"project.taskflow.dialogLabel": "Vista ampliada de la galería de Taskflow",
-	"project.taskflow.cover.alt": "Grafo de dependencias de un flujo, con los hitos y las tareas que cada uno libera",
+	"project.taskflow.cover.alt": "Pantalla de acceso de Taskflow, con el formulario de correo y contraseña",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
 	"project.taskflow.shot.dashboard.alt":
 		"Panel de inicio con flujos activos, tareas pendientes, vencidas y la productividad de la semana",
@@ -676,7 +676,7 @@ const en: Record<TranslationKey, string> = {
 	"project.taskflow.title": "Taskflow",
 	"project.taskflow.summary": "Workflow management with dependencies and SLA tracking.",
 	"project.taskflow.dialogLabel": "Expanded gallery view for Taskflow",
-	"project.taskflow.cover.alt": "Dependency graph of a flow, with the milestones and the tasks each one releases",
+	"project.taskflow.cover.alt": "Taskflow sign-in screen, with the email and password form",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
 	"project.taskflow.shot.dashboard.alt":
 		"Home dashboard with active flows, pending and overdue tasks, and the week's productivity",
