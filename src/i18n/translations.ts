@@ -251,8 +251,44 @@ const es = {
 	"project.taskflow.summary":
 		"Gestión de flujos de trabajo con dependencias y control de SLA.",
 	"project.taskflow.dialogLabel": "Vista ampliada de la galería de Taskflow",
-	"project.taskflow.cover.alt": "Espacio reservado para una captura de Taskflow",
+	"project.taskflow.cover.alt": "Grafo de dependencias de un flujo, con los hitos y las tareas que cada uno libera",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
+	"project.taskflow.shot.dashboard.alt":
+		"Panel de inicio con flujos activos, tareas pendientes, vencidas y la productividad de la semana",
+	"project.taskflow.shot.dashboard.caption":
+		"Flujos activos, tareas vencidas y productividad semanal de un vistazo.",
+	"project.taskflow.shot.proyectos.alt":
+		"Listado de proyectos con buscador, filtros por estado y el avance de cada uno",
+	"project.taskflow.shot.proyectos.caption":
+		"Los proyectos filtrados por estado, cada uno con su porcentaje de avance.",
+	"project.taskflow.shot.proyecto.alt":
+		"Ficha de un proyecto con sus hitos, el responsable de cada uno y las tareas secuenciales que encadena",
+	"project.taskflow.shot.proyecto.caption":
+		"Cada hito muestra su responsable, su avance y las tareas que libera.",
+	"project.taskflow.shot.dependencias.alt":
+		"Grafo del flujo donde se distinguen las tareas completadas, en curso, pendientes y bloqueadas",
+	"project.taskflow.shot.dependencias.caption":
+		"El grafo del flujo: una tarea bloqueada se ve distinta de una pendiente.",
+	"project.taskflow.shot.estructura.alt":
+		"Vista estructural del flujo en lista, con barra de avance, prioridad y subtareas de cada hito",
+	"project.taskflow.shot.estructura.caption":
+		"La misma estructura en lista, con prioridad y avance por hito.",
+	"project.taskflow.shot.nuevo-flujo.alt":
+		"Formulario para crear un flujo, con responsable, fechas estimadas y plantilla base",
+	"project.taskflow.shot.nuevo-flujo.caption":
+		"Un flujo nuevo parte en blanco o desde una plantilla.",
+	"project.taskflow.shot.nueva-tarea.alt":
+		"Formulario de tarea con responsable, prioridad, estado y fechas estimadas de inicio y fin",
+	"project.taskflow.shot.nueva-tarea.caption":
+		"El estado se calcula solo, segun las dependencias de la tarea.",
+	"project.taskflow.shot.plantillas.alt":
+		"Catalogo de plantillas de flujo con su duracion estimada y los roles que participan",
+	"project.taskflow.shot.plantillas.caption":
+		"Plantillas reutilizables: alta de cliente, instalacion y soporte.",
+	"project.taskflow.shot.vista-previa.alt":
+		"Vista previa de una plantilla con sus hitos, sus tareas y la estructura que va a crear",
+	"project.taskflow.shot.vista-previa.caption":
+		"Antes de usar una plantilla se ve exactamente que va a crear.",
 	"project.taskflow.access": "Sistema interno · acceso por VPN",
 	"project.taskflow.description.1":
 		"Los procesos internos se coordinaban por correo y grupos de WhatsApp. Nadie veía qué tarea estaba frenando a las demás ni qué plazo estaba por vencerse.",
@@ -640,8 +676,44 @@ const en: Record<TranslationKey, string> = {
 	"project.taskflow.title": "Taskflow",
 	"project.taskflow.summary": "Workflow management with dependencies and SLA tracking.",
 	"project.taskflow.dialogLabel": "Expanded gallery view for Taskflow",
-	"project.taskflow.cover.alt": "Reserved space for a screenshot of Taskflow",
+	"project.taskflow.cover.alt": "Dependency graph of a flow, with the milestones and the tasks each one releases",
 	"project.taskflow.cover.label": "TASKFLOW.PNG",
+	"project.taskflow.shot.dashboard.alt":
+		"Home dashboard with active flows, pending and overdue tasks, and the week's productivity",
+	"project.taskflow.shot.dashboard.caption":
+		"Active flows, overdue tasks and weekly productivity at a glance.",
+	"project.taskflow.shot.proyectos.alt":
+		"Project list with search, status filters and each project's progress",
+	"project.taskflow.shot.proyectos.caption":
+		"Projects filtered by status, each with its completion percentage.",
+	"project.taskflow.shot.proyecto.alt":
+		"A project view with its milestones, the owner of each one and the sequential tasks it chains",
+	"project.taskflow.shot.proyecto.caption":
+		"Each milestone shows its owner, its progress and the tasks it releases.",
+	"project.taskflow.shot.dependencias.alt":
+		"Flow graph telling completed, in-progress, pending and blocked tasks apart",
+	"project.taskflow.shot.dependencias.caption":
+		"The flow graph: a blocked task looks different from a pending one.",
+	"project.taskflow.shot.estructura.alt":
+		"Structural list view of the flow, with a progress bar, priority and subtasks per milestone",
+	"project.taskflow.shot.estructura.caption":
+		"The same structure as a list, with priority and progress per milestone.",
+	"project.taskflow.shot.nuevo-flujo.alt":
+		"Form to create a flow, with owner, estimated dates and a base template",
+	"project.taskflow.shot.nuevo-flujo.caption":
+		"A new flow starts empty or from a template.",
+	"project.taskflow.shot.nueva-tarea.alt":
+		"Task form with owner, priority, status and estimated start and end dates",
+	"project.taskflow.shot.nueva-tarea.caption":
+		"The status is computed automatically from the task's dependencies.",
+	"project.taskflow.shot.plantillas.alt":
+		"Flow template catalog with the estimated duration and the roles involved",
+	"project.taskflow.shot.plantillas.caption":
+		"Reusable templates: client onboarding, installation and support.",
+	"project.taskflow.shot.vista-previa.alt":
+		"Template preview with its milestones, its tasks and the structure it will create",
+	"project.taskflow.shot.vista-previa.caption":
+		"Before using a template you see exactly what it will create.",
 	"project.taskflow.access": "Internal system · VPN access",
 	"project.taskflow.description.1":
 		"Internal processes were coordinated over email and WhatsApp groups. Nobody could see which task was holding up the rest, or which deadline was about to slip.",
