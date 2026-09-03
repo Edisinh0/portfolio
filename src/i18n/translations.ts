@@ -222,8 +222,20 @@ const es = {
 		"Monitoreo y alertas de colas de call center sobre centrales 3CX.",
 	"project.queueAlerts.dialogLabel": "Vista ampliada de la galería de 3CX Queue Alerts",
 	"project.queueAlerts.cover.alt":
-		"Espacio reservado para una captura del panel de 3CX Queue Alerts",
+		"Pantalla de acceso del Centro de Monitoreo, con el formulario de correo y contraseña",
 	"project.queueAlerts.cover.label": "QUEUE_ALERTS.PNG",
+	"project.queueAlerts.shot.dashboard.alt":
+		"Panel en vivo con las colas monitoreadas, los operadores conectados y el historial de alertas",
+	"project.queueAlerts.shot.dashboard.caption":
+		"Una alerta activa, los operadores en línea y qué colas la dispararon.",
+	"project.queueAlerts.shot.cola.alt":
+		"Detalle de una cola con las llamadas por operador, el reparto por país y el estado de cada agente",
+	"project.queueAlerts.shot.cola.caption":
+		"Por cola: quién contesta, cuánto tarda y de dónde vienen las llamadas.",
+	"project.queueAlerts.shot.configuracion.alt":
+		"Pantalla de umbrales por cola, con los límites de espera y abandono que disparan cada alerta",
+	"project.queueAlerts.shot.configuracion.caption":
+		"Cada cliente ajusta sus propios umbrales sin tocar código.",
 	"project.queueAlerts.access": "Producto para cliente · instancia privada",
 	"project.queueAlerts.description.1":
 		"Una cola podía quedarse sin ningún agente conectado y nadie se enteraba hasta que reclamaba un cliente. La central tiene todos los datos, pero no avisa: hay que ir a buscarlos.",
@@ -650,8 +662,20 @@ const en: Record<TranslationKey, string> = {
 		"Call center queue monitoring and alerting for 3CX phone systems.",
 	"project.queueAlerts.dialogLabel": "Expanded gallery view for 3CX Queue Alerts",
 	"project.queueAlerts.cover.alt":
-		"Reserved space for a screenshot of the 3CX Queue Alerts dashboard",
+		"Sign-in screen for the monitoring center, with the email and password form",
 	"project.queueAlerts.cover.label": "QUEUE_ALERTS.PNG",
+	"project.queueAlerts.shot.dashboard.alt":
+		"Live panel with the monitored queues, the operators online and the alert history",
+	"project.queueAlerts.shot.dashboard.caption":
+		"One active alert, the operators online and which queues raised it.",
+	"project.queueAlerts.shot.cola.alt":
+		"Queue detail with calls per operator, a country split and each agent's status",
+	"project.queueAlerts.shot.cola.caption":
+		"Per queue: who answers, how long they take and where calls come from.",
+	"project.queueAlerts.shot.configuracion.alt":
+		"Per-queue threshold screen, with the waiting and abandoned limits that raise each alert",
+	"project.queueAlerts.shot.configuracion.caption":
+		"Each client tunes their own thresholds without touching code.",
 	"project.queueAlerts.access": "Client product · private instance",
 	"project.queueAlerts.description.1":
 		"A queue could end up with zero agents logged in and nobody would notice until a customer complained. The phone system has all the data — it just doesn't tell you.",
