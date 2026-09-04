@@ -8,6 +8,9 @@
 
 .filters {
 	display: flex;
+	/* Envuelve solo cuando los cinco filtros no caben en una linea. En pantallas
+	   anchas no cambia nada; en angostas evita que la fila ensanche la pagina. */
+	flex-wrap: wrap;
 	margin: 20px auto clamp(28px, 3vw, 42px);
 	align-items: center;
 	justify-content: center;
@@ -486,13 +489,21 @@
 
 @media (max-width: 560px) {
 	.filters {
+		/* El texto del boton no encoge, asi que cinco filtros no caben en una
+		   linea y desbordaban el ancho de la pagina. Envolver es preferible a
+		   recortar las etiquetas, que dejan de leerse. */
+		flex-wrap: wrap;
 		gap: 7px;
 	}
 
 	.filterButton {
 		min-width: 0;
 		height: 44px;
-		flex: 1;
+		/* `flex: 1` fija flex-basis en 0, asi que los botones siempre "caben" en
+		   una linea y el wrap nunca se activa; lo que desbordaba era el texto
+		   de adentro, que no encoge. Con base automatica cada boton mide lo que
+		   necesita y la fila envuelve. */
+		flex: 0 1 auto;
 		padding-inline: 8px;
 		font-size: 1rem;
 	}
