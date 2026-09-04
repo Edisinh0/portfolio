@@ -6,5 +6,5 @@ export default defineConfig({
 	// Astro lo usa para armar las URL absolutas del sitemap y de las
 	// metaetiquetas de Open Graph. Sin esto, la vista previa al compartir el
 	// enlace en LinkedIn o Upwork sale incompleta.
-	site: 'https://portfolio-silk-five-jwvk7f8zxc.vercel.app',
+	site: 'https://eddie-cerpa-edisinh0s-projects.vercel.app',
 });
